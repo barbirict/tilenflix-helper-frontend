@@ -1,6 +1,6 @@
 <template>
-  <div class="row">
-  <div class="flex md12 lg6 justify-self--center test">
+  <div class="row " >
+  <div class="flex xs12 sm10 md8 lg6 xl4 justify-self--center test">
 <login-card></login-card>
   </div>
 
@@ -19,7 +19,6 @@ export default {
 
 <style scoped>
 .test {
-  margin-right: auto;
-  margin-left: auto;
+margin: auto;
 }
 </style>

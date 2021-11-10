@@ -3,5 +3,5 @@ import App from './App.vue'
 import { VuesticPlugin } from 'vuestic-ui' // <-
 import 'vuestic-ui/dist/vuestic-ui.css' // <-
 import '@/assets/global.css'
-
-createApp(App).use(VuesticPlugin).mount('#app')
+import {hehe} from "@/assets/colorConfig";
+createApp(App).use(VuesticPlugin, hehe).mount('#app')

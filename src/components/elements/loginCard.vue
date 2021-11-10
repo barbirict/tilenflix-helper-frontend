@@ -14,7 +14,7 @@
           label="Password:"
       ></va-input>
     </va-form>
-    <va-button color="info" class="mr-4 justify-self--end">Login</va-button>
+    <va-button class="mr-6 justify-self--end">Login</va-button>
 
   </va-card-content>
 </va-card>
