@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-
 /*https://www.happyhues.co/palettes/15*/
 
-body {
-    background: linear-gradient(-45deg, #faeee7 ,#faece5 ,#fae9e2 ,#f9e7e0 ,#f9e4de ,#f9e2dc ,#f9dfdb ,#f8ddd9 ,#f8dad8 ,#f7d8d7 ,#f7d5d7 ,#f6d3d6 ,#f5d1d6 ,#f3ced6 ,#f2ccd6
+body{
+    background: linear-gradient(-45deg, #faeee7 ,#faece5 ,#fae9e2 , rgb(255 139 167)
     );
     background-size: 400% 400%;
     animation: gradient 5s ease infinite;
@@ -20,4 +19,10 @@ body {
     100% {
         background-position: 0% 50%;
     }
+}
+
+html{
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
