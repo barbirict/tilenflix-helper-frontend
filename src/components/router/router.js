@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import login from "@/components/views/login";
 import dashboardView from "@/components/views/dashboardView";
 
+
 const routes = [
     {path: '/', component: login, name: 'login'},
     {path: '/dashboard', component: dashboardView, name: 'dashboard'}

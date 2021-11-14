@@ -2,33 +2,45 @@
 <va-card class="flex" color="cardb">
   <va-card-title>Login</va-card-title>
   <va-card-content>
-    <va-form ref="loginf" @submit.prevent="onClick">
+    <form @submit.prevent="handleSubmit">
     <va-input
       class="mb-4"
-      v-model="username"
+      v-model="email"
       label="Username:"
+      autofocus
     ></va-input>
       <va-input
           class="mb-4"
           v-model="password"
           label="Password:"
-
+          type="password"
       ></va-input>
-    </va-form>
-    <va-button class="mr-6 justify-self--end" type="submit">Login</va-button>
+      <va-button class="mr-6 justify-self--end" type="submit">Login</va-button>
+    </form>
+
 
   </va-card-content>
 </va-card>
 </template>
 
 <script>
-import {getColors} from "vuestic-ui";
-
+import loginAttempt from "@/components/scripts/login";
 export default {
   name: "loginCard",
+  data(){
+    return{
+      email: '',
+      password: ''
+    }
+  },
   methods: {
-    onClick(){
-      alert(getColors().toString())
+    handleSubmit(){
+      const data = {
+        email: this.email,
+        password: this.password
+      };
+      alert("data")
+      loginAttempt(data)
     }
   }
 
