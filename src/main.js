@@ -4,4 +4,6 @@ import { VuesticPlugin } from 'vuestic-ui' // <-
 import 'vuestic-ui/dist/vuestic-ui.css' // <-
 import '@/assets/global.css'
 import {hehe} from "@/assets/colorConfig";
-createApp(App).use(VuesticPlugin, hehe).mount('#app')
+import router from "@/components/router/router";
+
+createApp(App).use(router).use(VuesticPlugin, hehe).mount('#app')

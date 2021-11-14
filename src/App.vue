@@ -1,21 +1,19 @@
 <template>
     <div class ="base-layout">
     <navigation></navigation>
-      <login></login>
+      <router-view></router-view>
     </div>
 
 
 </template>
 
 <script>
-import Login from "@/components/views/login";
 import Navigation from "@/navigation";
 
 export default {
   name: 'App',
   components: {
     Navigation,
-    Login
   }
 }
 </script>
