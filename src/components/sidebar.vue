@@ -7,7 +7,7 @@
     >
       <va-sidebar-item-content>
         <va-icon :name="item.icon" />
-        <va-sidebar-item-title style="height: 24px;">
+        <va-sidebar-item-title style="height: 12px;">
           {{ item.title }}
         </va-sidebar-item-title>
       </va-sidebar-item-content>
@@ -21,9 +21,10 @@ export default {
   data () {
     return {
       items: [
-        { title: 'Dashboard', icon: 'login' },
-        { title: 'Sidebar demo', icon: 'room', active: true },
-        { title: 'Loop', icon: 'loop'},
+        { title: 'Login', icon: 'login', active: true},
+        { title: 'About', icon: 'info_outline'}
+      /*  { title: 'Sidebar demo', icon: 'room', active: true },
+        { title: 'Loop', icon: 'loop'},*/
       ]
     }
   }
