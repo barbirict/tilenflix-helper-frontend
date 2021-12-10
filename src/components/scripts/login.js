@@ -1,18 +1,27 @@
 import firebase from "firebase/compat";
-
+//
+let isSucces = false;
 export default function loginAttempt(data){
     alert("not "+data.email+"  "+data.password)
-    firebase
+    async function f(){
+        return firebase
         .auth()
         .signInWithEmailAndPassword(data.email, data.password)
         .then(() => {
             //alert("yess") //this.$route.getRoutes())
-            //this.$router.push('/dashboard')
-            //alert(this.$route.name)
-            window.location.href = "/dashboard"
+           // $router.push('dashboard')
+           // this.$store.user(new user('','','','',data.email))
+           // window.location.href = "/dashboard"
         })
         .catch(err => {
             alert(err.message)
         })
-    alert("uhhh")
+        }
+        f().then(OnSucces())
+    alert(isSucces)
+    return isSucces
+}
+
+function OnSucces(){
+    isSucces=true
 }

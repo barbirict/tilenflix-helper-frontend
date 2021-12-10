@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import user from "../../model/user"
 import loginAttempt from "@/components/scripts/login";
 export default {
   name: "loginCard",
@@ -39,8 +40,13 @@ export default {
         email: this.email,
         password: this.password
       };
-      alert("data")
-      loginAttempt(data)
+      var t = loginAttempt(data)
+      alert(t)
+      if(t){
+        this.$router.push('dashboard')
+        this.$store.commit('setUser', new user('','','','',data.email))
+        alert("g" + JSON.stringify(this.$store.getters.getUser))
+      }
     }
   }
 
