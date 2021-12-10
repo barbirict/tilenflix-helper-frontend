@@ -6,6 +6,7 @@
     </div>
       <div class="child">
       <router-view></router-view>
+        <va-button v-on:click="test()">te</va-button>
     </div>
 
   </div>
@@ -16,7 +17,18 @@ import Navigation from "@/navigation";
 import Sidebar from "@/components/sidebar";
 export default {
   name: "mainView",
-  components: {Sidebar, Navigation}
+  components: {Sidebar, Navigation},
+
+  methods:{
+    test(){
+      alert("yes")
+      var obj = this.$router.getRoutes()
+      for(var i=0; i<obj.length; i++){
+        alert(obj[i].name)
+      }
+      this.$router.push('/dashboard')
+    }
+  }
 }
 </script>
 

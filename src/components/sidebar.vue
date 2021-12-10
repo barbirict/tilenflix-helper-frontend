@@ -21,11 +21,13 @@ export default {
   data () {
     return {
       items: [
-        { title: 'Login', icon: 'login', active: true},
-        { title: 'About', icon: 'info_outline'}
-      /*  { title: 'Sidebar demo', icon: 'room', active: true },
-        { title: 'Loop', icon: 'loop'},*/
-      ]
+        { title: 'Login', icon: 'login', forLogin: false, active: true},
+        { title: 'Dashboard', icon: 'dashboard', forLogin: true},
+        { title: 'Settings', icon: 'settings', forLogin: true},
+        { title: 'About', icon: 'info_outline', forLogin: false}
+      ],
+      isLogin : false,
+      isAdmin : false
     }
   }
 }

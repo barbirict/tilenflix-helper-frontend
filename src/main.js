@@ -6,6 +6,7 @@ import '@/assets/global.css'
 import {hehe} from "@/assets/colorConfig";
 import router from "@/components/router/router";
 import firebase from "firebase/compat";
+import store from "@/components/store/userStore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDGpYoLtdDgffo3eyLmcwUeHWZ99lBHbBA",
@@ -16,6 +17,6 @@ const firebaseConfig = {
     appId: "1:405984839781:web:cd8f866711f08d77a11e8c"
 };
 firebase.initializeApp(firebaseConfig)
-createApp(App).use(router).use(VuesticPlugin, hehe).mount('#app')
+createApp(App).use(router).use(VuesticPlugin, hehe).use(store).mount('#app')
 
 
