@@ -8,7 +8,6 @@ import router from "@/components/router/router";
 import firebase from "firebase/compat";
 import store from "@/components/store/userStore";
 import mitt from "mitt";
-//import firebaseConfig from "@/components/scripts/firebaseConfig"
 import LogRocket from 'logrocket';
 
 

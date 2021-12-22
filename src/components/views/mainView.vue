@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Navigation from "@/navigation";
+import Navigation from "@/components/views/navigation";
 import Sidebar from "@/components/sidebar";
 export default {
   name: "mainView",
