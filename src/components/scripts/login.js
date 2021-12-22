@@ -8,10 +8,6 @@ export default function loginAttempt(data){
         .auth()
         .signInWithEmailAndPassword(data.email, data.password)
         .then(() => {
-            //alert("yess") //this.$route.getRoutes())
-           // $router.push('dashboard')
-           // this.$store.user(new user('','','','',data.email))
-           // window.location.href = "/dashboard"
         })
         .catch(err => {
             alert(err.message)
