@@ -5,13 +5,19 @@
 </template>
 
 <script>
-import userState from "@/components/scripts/userState";
+import gre from "@/components/scripts/userState";
+
 export default {
   name: "dashboardView",
-  created() {
-    if(userState() == false){
-      this.$router.push('login')
+  data(){
+    return{
+      user : ""
     }
+
+  },
+  created() {
+    gre()
+
   }
 }
 </script>
