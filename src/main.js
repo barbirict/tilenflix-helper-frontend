@@ -10,7 +10,6 @@ import store from "@/components/store/userStore";
 import mitt from "mitt";
 import LogRocket from 'logrocket';
 
-
 LogRocket.init('xxxvu2/tilenflix');
 LogRocket.identify('0', {
     name: 'Tilen Barbirič',
@@ -33,6 +32,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-app.use(router).use(VuesticPlugin, hehe).use(store).mount('#app')
+app.use(router).use(VuesticPlugin, hehe).use(store).use(require('vue-cookies')).mount('#app')
 
 

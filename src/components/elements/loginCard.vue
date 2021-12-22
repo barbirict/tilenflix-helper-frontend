@@ -26,7 +26,7 @@
 <script>
 import user from "../../model/user"
 import loginAttempt from "@/components/scripts/login";
-import { getAuth } from "firebase/auth";
+import getUserFromFire from "@/components/scripts/getUserFromFire";
 export default {
   name: "loginCard",
   data(){
@@ -45,9 +45,7 @@ export default {
       console.log(t)
       if(t){
         this.$router.push('dashboard')
-        const auth = getAuth()
-        const usr = auth.currentUser
-
+        const usr = getUserFromFire()
         this.$store.commit('setUser', new user('','','','',data.email, usr.uid))
         console.log("g" + JSON.stringify(this.$store.getters.getUser))
         this.emitter.emit('userLoggedIn')
