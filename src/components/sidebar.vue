@@ -1,12 +1,15 @@
 <template>
   <va-sidebar hoverable textColor="dark" minimizedWidth="64px">
     <!--LOGIN-->
+
     <va-sidebar-item
         v-if="!isLogin"
         id="s0"
-        v-on:click="handleClick(0)"
+        :active="isActive('login')"
+
     >
-      <va-sidebar-item-content>
+      <va-sidebar-item-content v-on:click="handleClick('login')">
+
         <va-icon name="login" />
         <va-sidebar-item-title style="height: 12px;">
           Login
@@ -17,9 +20,10 @@
       <va-sidebar-item
           v-if="isLogin"
           id="s1"
-          v-on:click="handleClick(1)"
+          :active="isActive('dashboard')"
       >
-        <va-sidebar-item-content>
+        <va-sidebar-item-content
+            v-on:click="handleClick('dashboard')">
           <va-icon name="dashboard" />
           <va-sidebar-item-title style="height: 12px;">
             Dashboard
@@ -30,9 +34,10 @@
       <va-sidebar-item
           v-if="isLogin"
           id="s2"
-          v-on:click="handleClick(2)"
       >
-        <va-sidebar-item-content>
+        <va-sidebar-item-content
+            v-on:click="handleClick('settings')"
+        >
           <va-icon name="settings" />
           <va-sidebar-item-title style="height: 12px;">
             Settings
@@ -42,9 +47,11 @@
     <!--ABOUT-->
     <va-sidebar-item
         id="s3"
-        v-on:click="handleClick(3)"
+        :active="isActive('about')"
     >
-      <va-sidebar-item-content>
+      <va-sidebar-item-content
+          v-on:click="this.$router.push('/about')"
+      >
         <va-icon name="info_outline" />
         <va-sidebar-item-title style="height: 12px;">
           About
@@ -53,11 +60,13 @@
     </va-sidebar-item>
     <!--LOG OUT-->
     <va-sidebar-item
-        v-if="isLogin"
+       v-if="isLogin"
         id="s4"
-        v-on:click="handleClick(4)"
+
     >
-      <va-sidebar-item-content>
+      <va-sidebar-item-content
+          v-on:click="log_out"
+      >
         <va-icon name="logout" />
         <va-sidebar-item-title style="height: 12px;">
           Log out
@@ -69,60 +78,61 @@
 </template>
 
 <script>
-import logout from "@/components/scripts/logout";
+import firebase from "firebase/compat";
 export default {
   name: "sidebar",
   created() {
-    this.emitter.on('userLoggedIn', () =>{
-      alert("ALOOOO")
+    this.emitter.on('userLoggedIn', () => {
+      console.log("User has logged in, adjusting sidebar")
       this.isLogin = true
     })
   },
   updated() {
     alert(JSON.stringify(this.$store.getters.getUser))
-    if(this.$store.getters.getUser != null){
+    if (this.$store.getters.getUser != null) {
       this.isLogin = true
     }
   },
-  data () {
+  data() {
     return {
       items: [
-        { id: 0, title: 'Login', icon: 'login', btType: 0, active: true, oc: 'handleClick(0)'},
-        { id: 1, title: 'Dashboard', icon: 'dashboard', btType: 1, to: 'dashboard,', oc: 'this.handleClick(1)'},
-        { id: 2, title: 'Settings', icon: 'settings', btType: 1, oc: 'handleClick(2)'},
-        { id: 3, title: 'About', icon: 'info_outline', btType: 2, oc: 'handleClick(3)'},
-        { id: 4, title: 'Log out', icon: 'logout', btType: 1, oc: 'handleClick(4)'}
+        {id: 0, title: 'Login', icon: 'login', btType: 0, active: true, oc: 'handleClick(0)'},
+        {id: 1, title: 'Dashboard', icon: 'dashboard', btType: 1, to: 'dashboard,', oc: 'this.handleClick(1)'},
+        {id: 2, title: 'Settings', icon: 'settings', btType: 1, oc: 'handleClick(2)'},
+        {id: 3, title: 'About', icon: 'info_outline', btType: 2, oc: 'handleClick(3)'},
+        {id: 4, title: 'Log out', icon: 'logout', btType: 1, oc: 'handleClick(4)'}
       ],
-      isLogin : false,
-      isAdmin : false
+      isLogin: false,
+      isAdmin: false,
+      curActive: 0
     }
   },
-  methods:{
-    log_out(){
-      logout();
+  methods: {
+    log_out() {
+      if(this.$store.getters.getUser != null) {
+        firebase
+            .auth()
+            .signOut()
+            .then(() => {
+              alert("logged out successfully!")
+              this.$router.replace({
+                name: "login"
+              });
+              this.$store.commit("setUser", null)
+            });
+        this.isLogin = false
+      }
+      else alert("Not logged in, what are you trying to do?")
+      },
+    isActive(which) {
+
+      return this.$route.name === which
     },
-    handleClick(which){
-        switch (which){
-          case 0:
-            //alert("b0")
-            // eslint-disable-next-line no-undef
-              $("#s0").attr("active","true")
-            break
-          case 1:
-            alert("b1")
-            break
-          case 2:
-            alert("b2")
-            break
-          case 3:
-            alert("b3")
-            break
-          case 4:
-            alert("b4")
-            break
-          default:
-            alert("err")
-        }
+    handleClick(which) {
+      this.$router.push({name: which})
+      .then(() => {
+        console.log('updated route', this.$route)
+      })
     }
   }
 }

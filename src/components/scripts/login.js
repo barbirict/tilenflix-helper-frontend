@@ -2,7 +2,7 @@ import firebase from "firebase/compat";
 //
 let isSucces = false;
 export default function loginAttempt(data){
-    alert("not "+data.email+"  "+data.password)
+    console.log("not "+data.email+"  "+data.password)
     async function f(){
         return firebase
         .auth()
@@ -18,7 +18,7 @@ export default function loginAttempt(data){
         })
         }
         f().then(OnSucces())
-    alert(isSucces)
+    console.log(isSucces)
     return isSucces
 }
 

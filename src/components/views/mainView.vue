@@ -6,7 +6,6 @@
     </div>
       <div class="child">
       <router-view></router-view>
-        <sidebar-item v-on:click="alert('0aah')">te</sidebar-item>
     </div>
 
   </div>
@@ -20,14 +19,6 @@ export default {
   components: {Sidebar, Navigation},
 
   methods:{
-    /*test(){
-      alert("yes")
-      var obj = this.$router.getRoutes()
-      for(var i=0; i<obj.length; i++){
-        alert(obj[i].name)
-      }
-      this.$router.push('/dashboard')
-    }*/
   }
 }
 </script>

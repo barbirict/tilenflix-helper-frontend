@@ -41,11 +41,11 @@ export default {
         password: this.password
       };
       var t = loginAttempt(data)
-      alert(t)
+      console.log(t)
       if(t){
         this.$router.push('dashboard')
         this.$store.commit('setUser', new user('','','','',data.email))
-        alert("g" + JSON.stringify(this.$store.getters.getUser))
+        console.log("g" + JSON.stringify(this.$store.getters.getUser))
         this.emitter.emit('userLoggedIn')
       }
     }
