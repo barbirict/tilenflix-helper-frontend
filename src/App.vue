@@ -1,30 +1,18 @@
 <template>
-    <div class ="base-layout">
-    <navigation></navigation>
-      <router-view></router-view>
-    </div>
+  <main-view></main-view>
 
 
 </template>
 
 <script>
-import Navigation from "@/navigation";
-
+import MainView from "@/components/views/mainView";
 export default {
   name: 'App',
   components: {
-    Navigation,
+    MainView,
   }
 }
 </script>
 
 <style>
-.base-layout {
-  height: 100vh;
-  position: fixed;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 2;
-}
 </style>

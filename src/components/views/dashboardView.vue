@@ -5,8 +5,20 @@
 </template>
 
 <script>
+import gre from "@/components/scripts/userState";
+
 export default {
-  name: "dashboardView"
+  name: "dashboardView",
+  data(){
+    return{
+      user : ""
+    }
+
+  },
+  created() {
+    gre()
+
+  }
 }
 </script>
 

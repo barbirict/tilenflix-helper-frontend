@@ -1,6 +1,5 @@
 export default class user {
-    constructor(newUser) {
-        let {username, name, surname, password, email} = newUser
+    constructor(username, name, surname, password, email) {
         this.username = username
         this.password = password
         this.name = name
