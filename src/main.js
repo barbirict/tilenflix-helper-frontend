@@ -12,6 +12,9 @@ import LogRocket from 'logrocket';
 
 
 LogRocket.init('xxxvu2/tilenflix');
+LogRocket.identify('0', {
+    name: 'Tilen Barbirič',
+    email: 'barbiric.tilen@gmail.com'})
 
 const emitter = mitt()
 

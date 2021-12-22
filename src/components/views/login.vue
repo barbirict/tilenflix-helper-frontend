@@ -1,7 +1,7 @@
 <template>
   <body>
   <div class="row">
-  <div class="flex xs12 sm10 md8 lg6 xl4  test">
+  <div class="flex xs12 sm10 md8 lg6 xl4 main-card">
 <login-card></login-card>
   </div>
   </div>
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style scoped>
-.test {
+.main-card {
   margin: auto;
   padding-top: 25vh;
 }
