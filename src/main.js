@@ -8,13 +8,13 @@ import router from "@/components/router/router";
 import firebase from "firebase/compat";
 import store from "@/components/store/userStore";
 import mitt from "mitt";
-import LogRocket from 'logrocket';
+/*import LogRocket from 'logrocket';
 
 LogRocket.init('xxxvu2/tilenflix');
 LogRocket.identify('0', {
     name: 'Tilen Barbirič',
     email: 'barbiric.tilen@gmail.com'})
-
+*/
 const emitter = mitt()
 
 const app = createApp(App)
@@ -32,6 +32,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-app.use(router).use(VuesticPlugin, hehe).use(store).use(require('vue-cookies')).mount('#app')
+app.use(router).use(VuesticPlugin, hehe).use(store).mount('#app')
 
 

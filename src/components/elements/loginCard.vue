@@ -26,7 +26,9 @@
 <script>
 import user from "../../model/user"
 import loginAttempt from "@/components/scripts/login";
-import getUserFromFire from "@/components/scripts/getUserFromFire";
+import userService from "@/components/scripts/userService/userService";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+
 export default {
   name: "loginCard",
   data(){
@@ -44,11 +46,19 @@ export default {
       var t = loginAttempt(data)
       console.log(t)
       if(t){
-        this.$router.push('dashboard')
-        const usr = getUserFromFire()
-        this.$store.commit('setUser', new user('','','','',data.email, usr.uid))
-        console.log("g" + JSON.stringify(this.$store.getters.getUser))
-        this.emitter.emit('userLoggedIn')
+        const auth = getAuth();
+        onAuthStateChanged(auth, (usr) => {
+          if (usr) {
+            userService.get(usr.uid).then(response=>{
+              this.$store.commit('setUser', new user(response.data.username,response.data.name,response.data.surname,data.email, usr.uid))
+              console.log("g" + JSON.stringify(this.$store.getters.getUser))
+              this.emitter.emit('userLoggedIn')
+              this.$router.push('dashboard')
+            })
+          }
+        })
+
+
       }
     }
   }
