@@ -31,16 +31,10 @@ export default {
 
 <style scoped>
 .movies{
-  /* padding-inline: 2.5%;*/
-  padding-top: 2.5%;
   padding-bottom: 2.5%;
   text-align: center;
   display: flex;
   align-items: center;
-}
-.titel{
-  text-align: center;
-  margin-top: 2%;
 }
 .recentCard{
   width: 100%;
@@ -51,9 +45,6 @@ export default {
 }
 .navbut-l, .navbut-r {
   margin-bottom: 5%;
-}
-.navbut-r {
-
 }
 
 </style>
