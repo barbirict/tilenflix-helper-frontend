@@ -16,6 +16,7 @@
           type="password"
       ></va-input>
       <va-button class="mr-6 justify-self--end" type="submit">Login</va-button>
+
     </form>
 
 
@@ -54,6 +55,7 @@ export default {
               console.log("g" + JSON.stringify(this.$store.getters.getUser))
               this.emitter.emit('userLoggedIn')
               this.$router.push('dashboard')
+              this.$vaToast.init({message: '<span><va-icon class="material-icons">check_circle</va-icon>  successful login!</span>', html: true, color:'success'})
             })
           }
         })
