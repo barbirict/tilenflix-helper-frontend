@@ -1,7 +1,6 @@
 <template>
   <va-card class="recentCard">
-    <!--movies-display-->
-    <h2 class="titel">Recently added movies</h2>
+    <va-card-title>Recently added movies</va-card-title>
     <div class="movies-wrapper">
     <div class="movies">
       <va-button class="navbut-l"><va-icon></va-icon></va-button>
