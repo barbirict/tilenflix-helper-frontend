@@ -8,6 +8,8 @@ import router from "@/components/router/router";
 import firebase from "firebase/compat";
 import store from "@/components/store/userStore";
 import mitt from "mitt";
+import VueCookies from "vue3-cookies";
+
 /*import LogRocket from 'logrocket';
 
 LogRocket.init('xxxvu2/tilenflix');
@@ -32,6 +34,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-app.use(router).use(VuesticPlugin, hehe).use(store).mount('#app')
+app.use(router).use(VuesticPlugin, hehe).use(store).use(VueCookies, {expireTimes: "30d", secure: true}).mount('#app')
 
 

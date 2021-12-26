@@ -8,7 +8,11 @@
 import MainView from "@/components/views/mainView";
 export default {
   name: 'App',
-  created() {
+  mounted() {
+    if(this.$cookies.isKey("testni")){
+      console.log(this.$cookies.get("testni"))
+    }
+    else this.$cookies.set("testni","toDelaahha","1h")
   },
   components: {
     MainView,
