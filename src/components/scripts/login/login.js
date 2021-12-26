@@ -1,6 +1,6 @@
 import firebase from "firebase/compat";
 import Cookies from 'js-cookie'
-
+import sessionCookieService from "@/components/scripts/login/sessionCookieService";
 //
 let isSucces = false;
 export default function loginAttempt(data){
@@ -9,33 +9,26 @@ export default function loginAttempt(data){
         return firebase
         .auth()
         .signInWithEmailAndPassword(data.email, data.password)
-        .then(user => {
-            return suer.getIdToken().then(idToken => {
+        .then(({user}) => {
+            return user.getIdToken().then(idToken => {
                 const csrfToken = Cookies.get('csrfToken')
-                return postIdTokenToSession
+                return sessionCookieService.createSessionCookie(csrfToken, idToken, csrfToken)
             })
         })
         .catch(err => {
             alert(err.message)
         })
         }
-        f().then(OnSucces())
-    console.log(isSucces)
-    return isSucces
-}
-
-function makeCookie(idToken, csrfToken){
-    const idT = idToken
-    const csrfT = csrfToken
-    if(csrfT !== Cookies.get('csrfToken')){
-        alert("401")
-        return
-    }
-    const expiresIn = 60 * 60 * 24 * 5 * 1000
+        return f().then(response => {
+            console.log(response.data.options)
+          Cookies.set('session', response.data.sessionCookie, response.data.options)
+          OnSucces();
+            console.log("here"+isSucces)
+            return isSucces
+        })
 
 
 }
-
 function OnSucces(){
     console.log(Cookies.get("testni"))
     isSucces=true

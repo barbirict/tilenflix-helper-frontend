@@ -1,8 +1,8 @@
-import http from "./http-common"
+import http from "../../../data/http-common"
 
 class userService {
     get(id) {
-        return http.get("/users/"+id)
+        return http.get("users/"+id)
     }
 }
 

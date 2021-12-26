@@ -26,7 +26,7 @@
 
 <script>
 import user from "../../model/user"
-import loginAttempt from "@/components/scripts/login";
+import loginAttempt from "@/components/scripts/login/login";
 import userService from "@/components/scripts/userService/userService";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 
