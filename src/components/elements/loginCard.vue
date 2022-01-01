@@ -51,7 +51,7 @@ export default {
         onAuthStateChanged(auth, (usr) => {
           if (usr) {
             userService.get(usr.uid).then(response=>{
-              this.$store.commit('setUser', new user(response.data.username,response.data.name,response.data.surname,data.email, usr.uid))
+              this.$store.commit('setUser', new user(response.username,response.name,response.surname,data.email, usr.uid))
               console.log("g" + JSON.stringify(this.$store.getters.getUser))
               this.emitter.emit('userLoggedIn')
               this.$router.push('dashboard')

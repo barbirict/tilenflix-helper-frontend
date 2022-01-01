@@ -1,27 +1,55 @@
+//import axios from "axios";
 import axios from "axios";
+
 class sessionCookieService {
-    createSessionCookie(cst, it) {
-        return axios.request({
+    async createSessionCookie(cst, it) {
+      /*  const response = await fetch('/svc/cookies/new', {
+            withCredentials: true,
+            method: 'POST',
+            body: JSON.stringify({
+                idToken: it,
+                csrfToken: cst
+
+            }),
+            headers:{
+                "Content-type": "application/json",
+                "Access-Control-Allow-Private-Network": true
+            }
+        })
+        return response.json()*/
+        const response = await axios.request({
             withCredentials: true,
             method: 'post',
-            url: 'http://localhost:6060/svc/cookies/new',
+            url: '/svc/cookies/new',
             data: {
                 idToken: it,
                 csrfToken: cst
 
             },
             headers:{
-                "Content-type": "application/json"
+                "Content-type": "application/json",
+                "Access-Control-Allow-Private-Network": true
             }
         })
+        return await response.data
     }
-    verifySessionCookie() {
-        return axios.request( {
+    async verifySessionCookie() {
+    const response = await axios.request( {
+        withCredentials: true,
+        method: 'post',
+        url: '/svc/cookies/verify'
+    })
+        return await response.data
+    }
+        return /*axios.request( {
             withCredentials: true,
             method: 'post',
-            url: 'http://localhost:6060/svc/cookies/verify',
+            url: '/svc/cookies/verify',
+            headers:{
+                "Access-Control-Allow-Private-Network": true
+            }
         })
-    }
+    }*/
 }
 
 export default new sessionCookieService()

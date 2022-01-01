@@ -20,8 +20,7 @@ export default function loginAttempt(data){
         })
         }
         return f().then(response => {
-            console.log(response.data.options)
-          Cookies.set('session', response.data.sessionCookie, response.data.options)
+          Cookies.set('session', response.sessionCookie, response.options)
           OnSucces();
             console.log("here"+isSucces)
             return isSucces

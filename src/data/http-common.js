@@ -1,8 +1,9 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "http://localhost:6060/api",
+    baseURL: "/api",
     headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
+            "Access-Control-Allow-Private-Network": true
     }
 });
