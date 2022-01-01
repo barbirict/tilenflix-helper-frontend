@@ -79,6 +79,7 @@
 
 <script>
 import firebase from "firebase/compat";
+import Cookies from "js-cookie";
 export default {
   name: "sidebar",
   created() {
@@ -115,6 +116,7 @@ export default {
             .signOut()
             .then(() => {
               alert("logged out successfully!")
+              Cookies.remove("session")
               this.$router.replace({
                 name: "login"
               });

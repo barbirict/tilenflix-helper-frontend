@@ -1,8 +1,10 @@
-import http from "./http-common"
+import axios from "axios";
+
 
 class userService {
-    get(id) {
-        return http.get("/users/"+id)
+    async get(id) {
+        const response = await axios.get('/api/users/'+id)
+        return await response.data
     }
 }
 
