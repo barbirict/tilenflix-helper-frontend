@@ -1,15 +1,15 @@
 <template>
-<va-navbar>
-  <template #left>
-  <img class="n-logo" src="@/assets/logo.png">
-  </template>
-  <template #center>
+  <va-navbar>
+    <template #left>
+      <img class="n-logo" src="@/assets/logo.png">
+    </template>
+    <template #center>
 
-  </template>
-  <template #right>
+    </template>
+    <template #right>
 
-  </template>
-</va-navbar>
+    </template>
+  </va-navbar>
 </template>
 
 <script>
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style scoped>
-.n-logo{
+.n-logo {
   height: 50px;
 }
 </style>
