@@ -25,22 +25,31 @@ export default defineComponent({
   data: () => ({
     // carousel settings
     settings: {
-      itemsToShow: 2.5,
-      wrapAround: 'true'
+      itemsToShow: 2.75,
+      wrapAround: 'true',
+      autoplay: 30000
     },
     // breakpoints are mobile first
     // any settings not specified will fallback to the carousel settings
     breakpoints: {
       // 700px and up
       768: {
-        itemsToShow: 3.25,
+        itemsToShow: 3.45,
         snapAlign: 'center',
+      },
+      992:{
+        itemsToShow: 3.05,
+        snapAlign: 'center'
       },
       // 1024 and up
-      1024: {
-        itemsToShow: 3.95,
+      1200: {
+        itemsToShow: 3.15,
         snapAlign: 'center',
       },
+      1680: {
+        itemsToShow: 3.95,
+        snapAlign: 'center'
+      }
     },
   }),
 });
@@ -50,6 +59,7 @@ export default defineComponent({
 .carousel__item {
   min-height: 300px;
   width: 100%;
+  margin-top: 20px;
 }
 
 
