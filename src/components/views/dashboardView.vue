@@ -1,6 +1,6 @@
 <template>
 <div class="row">
-<dash-first class="flex xs12 sm10 md9 lg8 xl5 kura" > </dash-first>
+<dash-first class="flex xs12 sm12 md12 lg6 xl5 kura offset--xl2 offset--lg2" > </dash-first>
 </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
 
 <style scoped>
 .kura{
-  margin-left: 15%;
+
   margin-top: 3vh;
 }
 </style>

@@ -1,5 +1,12 @@
 <template>
+  <span>
+  <div class="row flex recent">
   <recent-card></recent-card>
+  </div>
+    <div class="row flex recent">
+      <recent-card></recent-card>
+    </div>
+    </span>
 </template>
 
 <script>
@@ -11,5 +18,8 @@ export default {
 </script>
 
 <style scoped>
+.recent {
+  margin-top: 1vh;
+}
 
 </style>
