@@ -1,7 +1,7 @@
 <template>
   <va-card class="recentCard">
     <va-card-title>Recently added movies</va-card-title>
-
+    <va-divider />
     <div class="movies-wrapper">
       <va-button round="true" class="navbut-l">
         <va-icon name="arrow_back_ios_new"></va-icon>
