@@ -9,7 +9,7 @@ import firebase from "firebase/compat";
 import store from "@/components/store/userStore";
 import mitt from "mitt";
 import VueCookies from "vue3-cookies";
-import VueCarousel from 'vue-carousel';
+import VueCarousel from 'vue3-carousel';
 
 /*import LogRocket from 'logrocket';
 

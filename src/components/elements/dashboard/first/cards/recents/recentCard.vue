@@ -3,32 +3,18 @@
     <va-card-title>Recently added movies</va-card-title>
     <va-divider />
     <div class="movies-wrapper">
-      <va-button round="true" class="navbut-l">
-        <va-icon name="arrow_back_ios_new"></va-icon>
-      </va-button>
-      <div class="movies">
-        <movie-card></movie-card>
-        <movie-card></movie-card>
-        <movie-card></movie-card>
-        <movie-card></movie-card>
-        <movie-card></movie-card>
-
-
-      </div>
-      <va-button round="true" class="navbut-r">
-        <va-icon name="arrow_forward_ios_new" style="width: 24px"></va-icon>
-      </va-button>
+      <movie-carousel class="mc"/>
     </div>
 
   </va-card>
 </template>
 
 <script>
-import MovieCard from "@/components/elements/dashboard/first/cards/recents/movieCard";
-
+import 'vue3-carousel/dist/carousel.css';
+import MovieCarousel from "@/components/elements/dashboard/first/cards/recents/movieCarousel";
 export default {
   name: "recentCard",
-  components: {MovieCard},
+  components: {MovieCarousel},
   data() {
     return {
       value: 'One'
@@ -38,14 +24,6 @@ export default {
 </script>
 
 <style scoped>
-.movies {
-  padding-bottom: 2.5%;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-inline: 3%;
-}
 
 .movies-wrapper {
   display: flex;
@@ -53,38 +31,12 @@ export default {
   align-items: center;
 }
 
-.movies-wrapper button:first-of-type {
+.mc{
+width: 90%;
+  height: 100%;
 }
 
-.movies-wrapper button:last-of-type {
+.recentCard{
+  height: 360px;
 }
-
-.movie-internal-wrapper {
-
-}
-
-.navbut-r, .navbut-l {
-  margin-bottom: 8% !important;
-}
-
-@media only screen and (max-width: 1600px) {
-  .movies div:nth-of-type(4) {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 2300px) {
-  .movies div:nth-of-type(3) {
-    display: none;
-  }
-
-}
-
-@media only screen and (max-width: 500px) {
-  .movies div:last-of-type {
-    display: none;
-  }
-
-}
-
 </style>
