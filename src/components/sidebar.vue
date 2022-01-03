@@ -1,5 +1,5 @@
 <template>
-  <va-sidebar hoverable textColor="dark" minimizedWidth="64px">
+  <va-sidebar hoverable textColor="dark" minimizedWidth="64px" v-model="showBar" v-on:mouseenter="handleHover" v-on:mouseleave="handleHover">
     <!--LOGIN-->
 
     <va-sidebar-item
@@ -8,7 +8,7 @@
         :active="isActive('login')"
 
     >
-      <va-sidebar-item-content v-on:click="handleClick('login')">
+      <va-sidebar-item-content v-on:click="this.emitter.emit('changedPerspective'), handleClick('login')">
 
         <va-icon name="login"/>
         <va-sidebar-item-title style="height: 12px;">
@@ -23,7 +23,7 @@
         :active="isActive('dashboard')"
     >
       <va-sidebar-item-content
-          v-on:click="handleClick('dashboard')">
+          v-on:click="this.emitter.emit('changedPerspective'), handleClick('dashboard')">
         <va-icon name="dashboard"/>
         <va-sidebar-item-title style="height: 12px;">
           Dashboard
@@ -36,7 +36,7 @@
         id="s2"
     >
       <va-sidebar-item-content
-          v-on:click="handleClick('settings')"
+          v-on:click="handleClick('settings'), this.emitter.emit('changedPerspective')"
       >
         <va-icon name="settings"/>
         <va-sidebar-item-title style="height: 12px;">
@@ -50,7 +50,7 @@
         :active="isActive('about')"
     >
       <va-sidebar-item-content
-          v-on:click="this.$router.push('/about')"
+          v-on:click="this.emitter.emit('changedPerspective'), this.$router.push('/about')"
       >
         <va-icon name="info_outline"/>
         <va-sidebar-item-title style="height: 12px;">
@@ -83,14 +83,18 @@ import Cookies from "js-cookie";
 
 export default {
   name: "sidebar",
+
   created() {
     this.emitter.on('userLoggedIn', () => {
       console.log("User has logged in, adjusting sidebar")
       this.isLogin = true
     })
+    this.emitter.on('sidebarSwitch', () => {
+      if(this.showBar) this.showBar = false
+      else this.showBar= true
+    })
   },
   updated() {
-    alert(JSON.stringify(this.$store.getters.getUser))
     if (this.$store.getters.getUser != null) {
       this.isLogin = true
     }
@@ -106,7 +110,8 @@ export default {
       ],
       isLogin: false,
       isAdmin: false,
-      curActive: 0
+      curActive: 0,
+      showBar: true
     }
   },
   methods: {
@@ -135,6 +140,9 @@ export default {
           .then(() => {
             console.log('updated route', this.$route)
           })
+    },
+    handleHover(){
+      this.emitter.emit('sidebarHover')
     }
   }
 }

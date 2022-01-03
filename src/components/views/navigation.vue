@@ -1,6 +1,7 @@
 <template>
   <va-navbar>
     <template #left>
+      <va-button v-on:click="clickHandler"></va-button>
       <img class="n-logo" src="@/assets/logo.png">
     </template>
     <template #center>
@@ -14,7 +15,13 @@
 
 <script>
 export default {
-  name: "navigation"
+  name: "navigation",
+
+  methods:{
+    clickHandler(){
+      this.emitter.emit('sidebarSwitch')
+    }
+  }
 }
 </script>
 

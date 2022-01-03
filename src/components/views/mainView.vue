@@ -4,7 +4,7 @@
     <div class="child1" >
       <sidebar></sidebar>
     </div>
-      <div class="child">
+      <div v-bind:class="{pushLeft: sidebarShown}" class="child">
       <router-view></router-view>
     </div>
 
@@ -19,16 +19,17 @@ import Sidebar from "@/components/sidebar";
 export default {
   name: "mainView",
   components: {Sidebar, Navigation},
-  /*
   created() {
-    var u = this.$cookies.get("usrSession")
-    if( u != null){
-      const usr = getUserFromFire()
-      this.$store.setters("setUser", new user("","","",usr.email,usr.uid))
-      console.log(this.$store.getters.getUser)
+    this.emitter.on('sidebarSwitch', () => {
+      if(this.sidebarShown) this.sidebarShown = false
+      else this.sidebarShown = true
+    })
+  },
+  data() {
+    return {
+      sidebarShown: false
     }
   },
-*/
   methods:{
   }
 }
@@ -42,5 +43,10 @@ export default {
 .child1{
   width: 0%;
   float: left;
+}
+@media only screen and (max-width: 1500px) {
+  .pushLeft {
+    margin-left: 280px;
+  }
 }
 </style>
