@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "crypto-js": "^4.1.1",
     "firebase": "^9.4.1",
     "js-cookie": "^3.0.1",
     "logrocket": "^2.1.2",
