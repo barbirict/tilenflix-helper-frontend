@@ -11,6 +11,7 @@ import userService from "@/components/scripts/userService/userService";
 import user from "@/model/user";
 import Cookies from 'js-cookie'
 
+
 export default {
   name: 'App',
   mounted() {

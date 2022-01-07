@@ -1,6 +1,7 @@
 import firebase from "firebase/compat";
 import Cookies from 'js-cookie'
 import sessionCookieService from "@/components/scripts/login/sessionCookieService";
+import decrypt from "@/components/scripts/decryptor";
 //
 let isSucces = false;
 export default function loginAttempt(data){
@@ -20,7 +21,12 @@ export default function loginAttempt(data){
         })
         }
         return f().then(response => {
+            response = decrypt(response)
           Cookies.set('session', response.sessionCookie, response.options)
+          Cookies.set('jwt', response.jwt, {
+              httpOnly: true,
+              secure: true
+          })
           OnSucces();
             console.log("here"+isSucces)
             return isSucces
