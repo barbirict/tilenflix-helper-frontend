@@ -2,6 +2,8 @@ import firebase from "firebase/compat";
 import Cookies from 'js-cookie'
 import sessionCookieService from "@/components/scripts/login/sessionCookieService";
 import decrypt from "@/components/scripts/decryptor";
+import store from '@/components/store/userStore';
+
 //
 let isSucces = false;
 export default function loginAttempt(data){
@@ -12,8 +14,9 @@ export default function loginAttempt(data){
         .signInWithEmailAndPassword(data.email, data.password)
         .then(({user}) => {
             return user.getIdToken().then(idToken => {
-                const csrfToken = Cookies.get('csrfToken')
-                return sessionCookieService.createSessionCookie(csrfToken, idToken, csrfToken)
+                const csrfToken = store.getters.getCsrf
+                console.log("to izpljunem: " + csrfToken)
+                return sessionCookieService.createSessionCookie(csrfToken, idToken)
             })
         })
         .catch(err => {

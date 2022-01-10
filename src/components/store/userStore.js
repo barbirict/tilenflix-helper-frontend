@@ -3,7 +3,7 @@ import {createStore} from "vuex";
 export default createStore({
     state: {
         user: null,
-        csrfToken: (Math.random() * 100000000000000000).toString()
+        csrfToken: null
     },
     getters: {
         getUser: state => {
@@ -16,6 +16,9 @@ export default createStore({
     mutations: {
         setUser(state, user) {
             state.user = user
+        },
+        setCsrf(state, token){
+            state.csrfToken = token
         }
     }
 })

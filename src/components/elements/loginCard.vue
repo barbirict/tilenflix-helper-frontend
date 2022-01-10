@@ -53,7 +53,7 @@ export default {
         onAuthStateChanged(auth, (usr) => {
           if (usr) {
             console.log("niggas")
-            userService.get().then(response=>{
+            userService.get(usr.uid).then(response=>{
               console.log("ah" + decrypt(response))
               this.$store.commit('setUser', new user(response.username,response.name,response.surname,data.email, usr.uid))
               console.log("g" + JSON.stringify(this.$store.getters.getUser))

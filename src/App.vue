@@ -10,12 +10,19 @@ import sessionCookieService from "@/components/scripts/login/sessionCookieServic
 import userService from "@/components/scripts/userService/userService";
 import user from "@/model/user";
 import Cookies from 'js-cookie'
-
+import axios from "axios";
 
 export default {
   name: 'App',
   mounted() {
-    this.$cookies.set('csrfToken', this.$store.getters.getCsrf)
+    axios.get('/svc/cookies/csrftoken').then((response) => {
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = response.data.csrfToken
+      this.$store.commit('setCsrf', response.data.csrfToken)
+      console.log("nareto")
+      console.log("store: " + this.$store.getters.getCsrf, "\naxios: " + axios.defaults.headers.common['X-CSRF-TOKEN'])
+    }, (err) => {
+      console.log(err)
+    })
     if (this.$store.getters.getUser == null) {
       if (Cookies.get('session') != null) {
         sessionCookieService.verifySessionCookie().then(response => {
