@@ -27,9 +27,10 @@ export default {
 <style scoped>
 .display-news{
   overflow: scroll;
-  height: 337px;
+  height: 360px;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  width: 96%;
 }
 
 .display-news::-webkit-scrollbar {
