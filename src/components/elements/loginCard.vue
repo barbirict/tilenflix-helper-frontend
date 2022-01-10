@@ -1,4 +1,5 @@
 <template>
+  <va-inner-loading :loading="loading" :size="60" color="primary">
 <va-card class="flex" color="cardb">
   <va-card-title>Login</va-card-title>
   <va-card-content>
@@ -22,53 +23,50 @@
 
   </va-card-content>
 </va-card>
+  </va-inner-loading>
 </template>
 
 <script>
 import user from "../../model/user"
 import loginAttempt from "@/components/scripts/login/login";
-import userService from "@/components/scripts/userService/userService";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
+
 import decrypt from "@/components/scripts/decryptor";
+import userService from "@/components/scripts/userService/userService";
 
 export default {
   name: "loginCard",
   data(){
     return{
+      loading: false,
       email: '',
       password: ''
     }
   },
   methods: {
-    handleSubmit(){
+    async handleSubmit() {
       const data = {
         email: this.email,
         password: this.password
       };
-      var t = loginAttempt(data)
-      console.log("niggas")
-      console.log(t)
-      if(t){
-        const auth = getAuth();
-        onAuthStateChanged(auth, (usr) => {
-          if (usr) {
-            console.log("niggas")
-            userService.get(usr.uid).then(response=>{
+        this.loading = true
+        await loginAttempt(data)
+
+        userService.get()
+        .then(response => {
               console.log("ah" + decrypt(response))
-              this.$store.commit('setUser', new user(response.username,response.name,response.surname,data.email, usr.uid))
+              this.$store.commit('setUser', new user(response.username, response.name, response.surname, data.email, response.id))
               console.log("g" + JSON.stringify(this.$store.getters.getUser))
               this.emitter.emit('userLoggedIn')
               this.$router.push('dashboard')
-              this.$vaToast.init({message: '<span><va-icon class="material-icons">check_circle</va-icon>  successful login!</span>', html: true, color:'success'})
+              this.$vaToast.init({
+                message: '<span><va-icon class="material-icons">check_circle</va-icon>  successful login!</span>',
+                html: true,
+                color: 'success'
+              })
             })
-          }
-        })
-
 
       }
     }
-  }
-
 }
 </script>
 

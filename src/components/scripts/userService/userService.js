@@ -2,9 +2,7 @@ import axios from "axios";
 
 
 class userService {
-    async get(ui) {
-        // eslint-disable-next-line no-unused-vars
-        const a= ui
+    async get() {
         const response = await axios.request({
             withCredentials: true,
             method: "get",
