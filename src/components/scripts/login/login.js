@@ -22,11 +22,9 @@ export default function loginAttempt(data){
         }
         return f().then(response => {
             response = decrypt(response)
+            console.log("r s c: " + response.sessionCookie)
           Cookies.set('session', response.sessionCookie, response.options)
-          Cookies.set('jwt', response.jwt, {
-              httpOnly: true,
-              secure: true
-          })
+         // Cookies.set('jwt', response.jwt, response.options)
           OnSucces();
             console.log("here"+isSucces)
             return isSucces

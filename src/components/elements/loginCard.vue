@@ -29,6 +29,7 @@ import user from "../../model/user"
 import loginAttempt from "@/components/scripts/login/login";
 import userService from "@/components/scripts/userService/userService";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import decrypt from "@/components/scripts/decryptor";
 
 export default {
   name: "loginCard",
@@ -45,12 +46,15 @@ export default {
         password: this.password
       };
       var t = loginAttempt(data)
+      console.log("niggas")
       console.log(t)
       if(t){
         const auth = getAuth();
         onAuthStateChanged(auth, (usr) => {
           if (usr) {
-            userService.get(usr.uid).then(response=>{
+            console.log("niggas")
+            userService.get().then(response=>{
+              console.log("ah" + decrypt(response))
               this.$store.commit('setUser', new user(response.username,response.name,response.surname,data.email, usr.uid))
               console.log("g" + JSON.stringify(this.$store.getters.getUser))
               this.emitter.emit('userLoggedIn')

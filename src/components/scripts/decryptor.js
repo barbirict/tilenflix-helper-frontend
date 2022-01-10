@@ -5,18 +5,18 @@ var CryptoJS = require("crypto-js");
 
 //const keys = require("../../data/keys.json")
 export default function decrypt(data){
-    const key = "b7f7aeb8fe8f191ec762cedacd008dc336f2b69fdfde0d82e43253ed3636c4fe"
+    const key = "47ceb1a04f4ff9b55b3906dd268926e64a96fa4ddcdd8c972efd4296b4a02932"
     //const cipherBuffer = null
     //$CryptoJS.base64.decode(data, cipherBuffer, cipherBuffer)
    let cipherString = data// atob(data)//cipherBuffer.toString()
     console.log(cipherString)
-    const iv = cipherString.split(".")[0]
-    cipherString = cipherString.split(".")[1]
-    console.log("iv ", Buffer.from(iv, 'base64').toString("hex"))
+    let iv = CryptoJS.enc.Base64.parse(cipherString.split(".")[0])
+    cipherString = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Base64.parse(cipherString.split(".")[1]))
+    console.log("iv ", iv.toString(), "\nHEx: " + iv.length);
+    //console.log("cipher", CryptoJS.enc.Hex.stringify(cipherString), "\nkey ", (CryptoJS.enc.Hex.parse(key)))
+    const decrypted = CryptoJS.AES.decrypt(cipherString, CryptoJS.enc.Hex.parse(key), {iv: iv})
 
-    console.log("cipher", Buffer.from(cipherString, 'base64').toString("hex"), "\nkey ", key)
-    const decrypted = CryptoJS.AES.decrypt(Buffer.from(cipherString, 'base64').toString("hex"), key ,
-        {mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7, iv: Buffer.from(iv, 'base64').toString("hex")})
-
-    console.log("decrypted", decrypted.toString())
+    console.log("decrypted", JSON.parse(decrypted.toString(CryptoJS.enc.Utf8)))
+    return JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
 }
+

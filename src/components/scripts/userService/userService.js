@@ -2,8 +2,15 @@ import axios from "axios";
 
 
 class userService {
-    async get(id) {
-        const response = await axios.get('/api/users/'+id)
+    async get() {
+        const response = await axios.request({
+            withCredentials: true,
+            method: "get",
+            url: '/api/users/0',
+            data:{
+                id: 0
+            }
+        })
         return await response.data
     }
 }
