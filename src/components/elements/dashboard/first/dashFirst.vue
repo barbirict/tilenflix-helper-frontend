@@ -2,21 +2,21 @@
   <span>
   <div class="row recent">
     <div v-bind:class="{'offset--xl2':sidebarShown, 'offset--lg2':sidebarShown && !sidebarHover}" class="flex xs12 sm12 md12 lg6 xl5 kura">
-      <!--<va-button style="width: 100%" v-on:click="handleClick"></va-button>-->
   <recent-card></recent-card>
       </div>
-    <div class="flex novice_lg">
-      <news-display-card></news-display-card>
-    </div>
+<div class="flex  reqreq"><status-card></status-card><requests-card></requests-card></div>
   </div>
     <div class="row recent">
       <div v-bind:class="{'offset--xl2':sidebarShown, 'offset--lg2':sidebarShown && !sidebarHover}" class="flex xs12 sm12 md12 lg6 xl5 kura">
       <recent-card></recent-card>
       </div>
+          <div class="flex novice_lg">
+      <news-display-card></news-display-card>
+    </div>
       <div class="flex xs12 sm12 md12 novice_sm">
       <news-display-card></news-display-card>
     </div>
-      <div class="flex  reqreq"><requests-card></requests-card><status-card></status-card></div>
+
       <div class="flex statt"></div>
     </div>
     </span>

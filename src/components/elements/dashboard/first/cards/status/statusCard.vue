@@ -26,13 +26,13 @@ export default {
   display: block;
   width: 96%;
   margin-left: 20px;
-  margin-top: 20px;
   height: 160px;
   text-align: center;
 }
 .server_stat{
   display: inline-block;
   width: 50%;
+  margin-top: 10px;
 }
 .server_stat > p {
   color: #08ff00;

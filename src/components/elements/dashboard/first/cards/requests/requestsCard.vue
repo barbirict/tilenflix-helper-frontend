@@ -4,15 +4,15 @@
   <va-divider />
   <div id="submitted">
     <h1>3</h1>
-    <p>requests submitted</p>
+    <p>Submitted</p>
   </div>
   <div id="in_progress">
     <h1>1</h1>
-    <p>Request in progress</p>
+    <p>In progress</p>
   </div>
   <div id="completed">
   <h1>12</h1>
-    <p>Requests completed</p>
+    <p>Completed</p>
   </div>
 </va-card>
 </template>
@@ -29,13 +29,15 @@ export default {
   text-align: center;
   display: block;
   margin-left: 20px;
+  margin-top: 20px;
   width: 96%;
   height: 180px;
 }
 #submitted, #completed, #in_progress {
+  height: 100%;
   width: 33.33%;
   display: inline-block;
-  margin-bottom: 15px;
+  margin-bottom: 15px !important;
 }
 #submitted > h1 {
   color: #2db1ea;
