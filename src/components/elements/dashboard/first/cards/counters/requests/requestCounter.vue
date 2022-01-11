@@ -3,7 +3,7 @@
   <va-card-title>Your Requests</va-card-title>
   <va-divider />
   <div id="submitted">
-    <h1>3</h1>
+    <h1>9</h1>
     <p>Submitted</p>
   </div>
   <div id="in_progress">
@@ -11,7 +11,7 @@
     <p>In progress</p>
   </div>
   <div id="completed">
-  <h1>12</h1>
+  <h1>8</h1>
     <p>Completed</p>
   </div>
 </va-card>
@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: "requestsCard"
+  name: "requestsCounter"
 }
 </script>
 

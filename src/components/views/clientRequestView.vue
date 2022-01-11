@@ -1,14 +1,25 @@
 <template>
-  <div class="row yes">
-  <request-card class="flex xl12 offset--xl2 req"></request-card>
+  <span class="first yes">
+  <div class="row">
+    <div class="flex offset--lg2 md8 lg6">
+    <form-card/>
+      </div>
   </div>
+    <div class="row">
+      <div class="flex offset--lg2 lg6">
+      <table-card/>
+        </div>
+    </div>
+    </span>
 </template>
 
 <script>
-import RequestCard from "@/components/elements/requests/requestCard";
+
+import TableCard from "@/components/elements/requests/cards/tableCard";
+import FormCard from "@/components/elements/requests/cards/formCard";
 export default {
   name: "clientRequestView",
-  components: {RequestCard}
+  components: {FormCard, TableCard}
 }
 </script>
 

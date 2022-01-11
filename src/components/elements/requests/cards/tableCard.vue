@@ -1,21 +1,58 @@
 <template>
-  <vue-good-table
-      :columns="columns"
-      :rows="rows"/>
+  <va-card>
+    <va-card-title>Your requests</va-card-title>
+    <va-divider></va-divider>
+    <va-data-table
+        :items="rows"
+        :columns="columns">
+      <template #header(episodes)>Episode(s)</template>
+
+    </va-data-table>
+  </va-card>
 </template>
+
 <script>
 
-import { defineComponent } from 'vue'
+import {defineComponent} from 'vue'
+import dayjs from "dayjs";
 
-function itemsToFields(items){
+function itemsToFields(items) {
   let rows = []
-  for(let i = 0; i<items.length; i++){
+  for (let i = 0; i < items.length; i++) {
     let sisn = "/"
     let epi = "/"
-    if(items[i].item_o.season) sisn = items[i].item_o.episodes
-    if (items[i].item_o.episodes) epi= items[i].item_o.episodes
-    rows.push({id: items[i].id, title: items[i].item_o.title, type: items[i].item_o.type, season: sisn,
-      episodes: epi, date: items[i].date, status: items[i].status})
+    let dat = dayjs(items[i].date).format("DD.MM.YYYY HH:mm")
+    let stat = ""
+    let typ = ""
+
+    switch (items[i].status){
+      case "submit":
+        stat = "Submitted"
+            break
+      case "inprog":
+        stat = "In progress"
+            break
+      case "finish":
+        stat = "Finished"
+    }
+
+    switch (items[i].item_o.type){
+      case "tv-show":
+          typ = "TV Show season"
+            break
+      case "tv-show-episode":
+        typ = "TV Show episode"
+            break
+      case "movie":
+        typ = "Movie"
+    }
+
+    if (items[i].item_o.season) sisn = items[i].item_o.season
+    if (items[i].item_o.episodes) epi = items[i].item_o.episodes
+    rows.push({
+      id: items[i].id, title: items[i].item_o.title, type: typ, season: sisn,
+      episodes: epi, date: dat, status: stat
+    })
   }
   console.log(rows)
   return rows
@@ -23,10 +60,7 @@ function itemsToFields(items){
 
 export default defineComponent({
   name: "tableCard",
-  methods: {
-
-
-  },
+  methods: {},
   data() {
     const sampleData = [
       {
@@ -37,7 +71,7 @@ export default defineComponent({
           season: "3",
           episodes: "1-24",
         },
-        date: "10-01-2022T23:30:52",
+        date: "2022-01-10T23:30:52",
         status: "submit",
       },
       {
@@ -46,7 +80,7 @@ export default defineComponent({
           title: "Star wars: Episode III",
           type: "movie"
         },
-        date: "10-01-2022T22:30:40",
+        date: "2022-01-10T22:30:40",
         status: "inprog",
       },
       {
@@ -57,7 +91,7 @@ export default defineComponent({
           season: "3",
           episodes: "1",
         },
-        date: "08-01-2022T12:45:03",
+        date: "2022-01-08T12:45:03",
         status: "finish",
       },
       {
@@ -68,22 +102,23 @@ export default defineComponent({
           season: "4",
           episodes: "18",
         },
-        date: "01-01-2022T21:15:21",
+        date: "2022-01-01T21:15:21",
         status: "finish",
       },
     ]
 
     const columns = [
-      {label: "id", field:"id"},
-      {label: "title", field: "title"},
-      {label: "type", field: "type"},
-      {label: "season", field: "season"},
-      {label: "episodes", field: "episodes"},
-      {label: "date", field: "date", type: "date", dateInputFormat: "dd-MM-YYYYThh-mm-ss", dateOutputFormat: "dd MMM YYYY"},
-      {label: "status", field: "status"}
+      {key: "id", sortable: true },
+      {key: "title", sortable: true },
+      {key: "type", sortable: true },
+      {key: "season", sortable: true },
+      {key: "episodes", sortable: true },
+      {key: "date", sortable: true },
+      {key: "status", sortable: true }
     ]
 
-    return {columns, rows: itemsToFields(sampleData)
+    return {
+      columns, rows: itemsToFields(sampleData)
     }
   },
 

@@ -4,7 +4,7 @@
     <div v-bind:class="{'offset--xl2':sidebarShown, 'offset--lg2':sidebarShown && !sidebarHover}" class="flex xs12 sm12 md12 lg6 xl5 kura">
   <recent-card></recent-card>
       </div>
-<div class="flex  reqreq"><status-card></status-card><requests-card></requests-card></div>
+<div class="flex  reqreq"><status-card></status-card><requests-counter></requests-counter></div>
   </div>
     <div class="row recent">
       <div v-bind:class="{'offset--xl2':sidebarShown, 'offset--lg2':sidebarShown && !sidebarHover}" class="flex xs12 sm12 md12 lg6 xl5 kura">
@@ -25,12 +25,12 @@
 <script>
 import RecentCard from "@/components/elements/dashboard/first/cards/recents/recentCard";
 import NewsDisplayCard from "@/components/elements/dashboard/first/cards/news/newsDisplayCard";
-import RequestsCard from "@/components/elements/dashboard/first/cards/requests/requestsCard";
+import RequestsCounter from "@/components/elements/dashboard/first/cards/counters/requests/requestCounter";
 import StatusCard from "@/components/elements/dashboard/first/cards/status/statusCard";
 
 export default {
   name: "dashFirst",
-  components: {StatusCard, RequestsCard, NewsDisplayCard, RecentCard},
+  components: {StatusCard, RequestsCounter, NewsDisplayCard, RecentCard},
   data(){
     return {
       sidebarShown: true,
