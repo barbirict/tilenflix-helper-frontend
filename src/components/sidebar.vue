@@ -30,6 +30,20 @@
         </va-sidebar-item-title>
       </va-sidebar-item-content>
     </va-sidebar-item>
+    <!--REQUESTS-->
+    <va-sidebar-item
+        v-if="isLogin"
+        id="s1"
+        :active="isActive('requests')"
+    >
+      <va-sidebar-item-content
+          v-on:click="this.emitter.emit('changedPerspective'), handleClick('requests')">
+        <va-icon name="assignment"/>
+        <va-sidebar-item-title style="height: 12px;">
+          Requests
+        </va-sidebar-item-title>
+      </va-sidebar-item-content>
+    </va-sidebar-item>
     <!--SETTINGS-->
     <va-sidebar-item
         v-if="isLogin"
