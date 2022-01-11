@@ -11,6 +11,9 @@ import mitt from "mitt";
 import VueCookies from "vue3-cookies";
 import VueCarousel from 'vue3-carousel';
 import VueCryptojs from "vue-cryptojs";
+import VueGoodTablePlugin from 'vue-good-table';
+import 'vue-good-table/dist/vue-good-table.css'
+
 
 /*import LogRocket from 'logrocket';
 
@@ -36,6 +39,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-app.use(router).use(VuesticPlugin, hehe).use(VueCarousel).use(store).use(VueCookies, {expireTimes: "30d", secure: true}).use(VueCryptojs).mount('#app')
+app.use(router).use(VuesticPlugin, hehe).use(VueCarousel).use(store).use(VueGoodTablePlugin).use(VueCookies, {expireTimes: "30d", secure: true}).use(VueCryptojs).mount('#app')
 
 
