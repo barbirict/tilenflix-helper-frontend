@@ -1,12 +1,12 @@
 <template>
   <span class="first yes">
   <div class="row">
-    <div class="flex offset--lg2 md8 lg6">
+    <div class="flex offset--lg2 md8 lg6 xl5 xs12">
     <form-card/>
       </div>
   </div>
     <div class="row">
-      <div class="flex offset--lg2 lg6">
+      <div class="flex offset--lg2 lg10 xl6">
       <table-card/>
         </div>
     </div>

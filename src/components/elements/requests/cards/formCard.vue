@@ -1,5 +1,5 @@
 <template>
-<va-card>
+<va-card class="cardd">
   <va-card-title>Request form</va-card-title>
   <va-divider/>
   <va-form class="frm">
@@ -20,9 +20,11 @@
     <va-input class="mb-0 ma-0 short" label="Episode" disabled/>
     </div>
     <va-input class="mb-4 ma-2 stretch" v-model="test" type="textarea" label="Comment" max-rows="2"/>
-    <img src="aa">
-  </va-form>
 
+  </va-form>
+  <div class="img-wrapper">
+  <img src="aa">
+  </div>
 </va-card>
 </template>
 
@@ -36,15 +38,32 @@ export default {
 </script>
 
 <style scoped>
-.frm {
+.cardd{
   height: 350px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+.frm {
+
+  display: inline-block;
+  float: left;
+  margin-left: 20px
 }
 .radio-wrapper{
 
   font-size: 0.8em;
 }
-img {
+img-wrapper {
+
   display: inline-block;
+  float: right;
+
+}
+img {
+  margin-top: 40px;
+  height: 200px;
+  width: 150px;
 }
 .long, .short {
   display: inline-block;
