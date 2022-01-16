@@ -12,15 +12,15 @@
     />
     </div>
     <div class="input-wrapper-top">
-    <va-input class="mb-0 ma-2 long" label="Title"/>
-    <va-input class="mb-0 ma-0 short" label="year"/>
+    <va-input class="mb-0 ma-2 long" v-model="title" label="Title" placeholder="eg. Content Title" :rules="[(v) => v.length > 2 || `Too short!`]"/>
+    <va-input type="number" class="mb-0 ma-0 short" v-model="year" label="year" placeholder="eg. 2003" :rules="[(v) => v.length === 4 || `Too short!`]" />
     </div>
     <div class="input-wrapper-mid">
-    <va-input class="mb-0 ma-2 long"  label="season" :disabled="type == 'Movie'"/>
-    <va-input class="mb-0 ma-0 short" label="Episode" :disabled="type != 'TV Show (Episode)'"/>
+    <va-input type="number" class="mb-0 ma-2 long"  v-model="season" label="season" :disabled="type == 'Movie'" placeholder="eg. 2"/>
+    <va-input type="number" class="mb-0 ma-0 short" v-model="episode" label="Episode" :disabled="type != 'TV Show (Episode)'" placeholder="eg. 3"/>
     </div>
-    <va-input class="mb-4 ma-2 stretch" v-model="test" type="textarea" label="Comment" max-rows="2"/>
-
+    <va-input class="mb-0 ma-2 stretch" v-model="comment" type="textarea" label="Comment" max-rows="2" placeholder="Not required s"/>
+    <va-button class="mb-4 ma-2">Submit</va-button>
   </va-form>
   <div class="img-wrapper">
   <img src="aa">
@@ -32,14 +32,15 @@
 export default {
   name: "formCard",
   data(){
-    return {options: ["Movie", "TV Show (Season)", "TV Show (Episode)"], type: "Movie", test: ""}
+    return {options: ["Movie", "TV Show (Season)", "TV Show (Episode)"], type: "Movie",
+      title:"", year:"", episode:"", season:"", comment:""}
   }
 }
 </script>
 
 <style scoped>
 .cardd{
-  height: 350px;
+  height: 370px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
