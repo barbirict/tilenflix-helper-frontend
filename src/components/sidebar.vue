@@ -1,5 +1,6 @@
 <template>
-  <va-sidebar :hoverable="hoverable" :width="swidth" textColor="dark" minimizedWidth="64px" v-model="showBar" v-on:mouseenter="handleHover" v-on:mouseleave="handleHover">
+  <va-sidebar :hoverable="hoverable" :width="swidth" textColor="dark" minimizedWidth="64px" v-model="showBar"
+              v-on:mouseenter="handleHover" v-on:mouseleave="handleHover">
     <!--LOGIN-->
 
     <va-sidebar-item
@@ -104,18 +105,41 @@ export default {
       this.isLogin = true
     })
     this.emitter.on('sidebarSwitch', () => {
-      this.showBar = !this.showBar;
-      if(this.showBar){
-        if(window.innerWidth < 600){
-        this.swidth = "100vw";
-          }
-        else this.swidth="240px"
+      if (window.innerWidth < 991) {
+        console.log("se je")
+        this.hoverable = false
+        this.showBar = !this.showBar
+        this.swidth = "100vw"
+      } else {
+        this.hoverable = true
+        this.swidth = "240px"
       }
-
     })
-    if(window.innerWidth < 600){
-      this.minimized=false
-      this.hoverable=false
+
+    this.emitter.on('sidebarResize', () => {
+      if (window.innerWidth < 991) {
+        console.log("se je")
+        this.hoverable = false
+        this.showBar = false
+        this.swidth = "100vw"
+      } else {
+        this.showBar = true
+        this.hoverable = true
+        this.swidth = "240px"
+      }
+    })
+
+    if (window.innerWidth > 991) {
+      this.showBar = true
+      this.minimized = false
+      this.hoverable = true
+      this.swidth = "240px"
+    }
+    else {
+      this.hoverable = false
+      this.showBar = false
+      this.swidth = "100vw"
+
     }
   },
   updated() {
@@ -138,7 +162,7 @@ export default {
       showBar: true,
       hoverable: true,
       minimized: false,
-      swidth: "240px"
+      swidth: "100vw"
     }
   },
   methods: {
@@ -163,7 +187,7 @@ export default {
       return this.$route.name === which
     },
     handleClick(which) {
-      if(window.innerWidth < 600) {
+      if (window.innerWidth < 991) {
         this.emitter.emit('sidebarSwitch')
         this.emitter.emit('changeIco')
       }
@@ -172,8 +196,8 @@ export default {
             console.log('updated route', this.$route)
           })
     },
-    handleHover(){
-      if(this.hoverable) {
+    handleHover() {
+      if (this.hoverable) {
         this.emitter.emit('sidebarHover')
       }
     }

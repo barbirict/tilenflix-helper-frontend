@@ -20,7 +20,7 @@
     <va-input type="number" class="mb-0 ma-0 short" v-model="episode" label="Episode" :disabled="type != 'TV Show (Episode)'" placeholder="eg. 3"/>
     </div>
     <va-input class="mb-0 ma-2 stretch" v-model="comment" type="textarea" label="Comment" max-rows="2" placeholder="Not required s"/>
-    <va-button class="mb-4 ma-2">Submit</va-button>
+    <va-button class="ma-2">Submit</va-button>
   </va-form>
   <div class="img-wrapper">
   <img src="aa">
@@ -44,6 +44,7 @@ export default {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
 @media only screen and (min-width: 600px) {
  .cardd{
    min-width: 562px;
@@ -68,12 +69,15 @@ export default {
 
   font-size: 0.8em;
 }
-img-wrapper {
+/*
+.img-wrapper {
 
   display: inline-block;
   float: right;
 
+
 }
+ */
 img {
   margin-top: 40px;
   height: 200px;

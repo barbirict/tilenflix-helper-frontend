@@ -15,4 +15,9 @@ export default {
   margin: auto;
   padding-top: 25vh;
 }
+@media only screen and (max-width: 576px) {
+  .main-card {
+    margin-inline: 20px;
+  }
+}
 </style>

@@ -13,10 +13,13 @@ import axios from "axios";
 
 export default {
   name: 'App',
+  created() {
+    window.addEventListener("resize", this.sizeChange);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.sizeChange);
+  },
   mounted() {
-    if(window.innerWidth < 600){
-      this.emitter.emit('sidebarSwitch')
-      }
     axios.get('/svc/cookies/csrftoken').then((response) => {
       axios.defaults.headers.common['X-CSRF-TOKEN'] = response.data.csrfToken
       this.$store.commit('setCsrf', response.data.csrfToken)
@@ -43,6 +46,11 @@ export default {
           })
         })
       }
+    }
+  },
+  methods: {
+    sizeChange(){
+        this.emitter.emit("sidebarResize")
     }
   },
   components: {

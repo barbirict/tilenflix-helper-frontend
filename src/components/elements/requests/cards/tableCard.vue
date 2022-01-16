@@ -132,5 +132,10 @@ export default defineComponent({
     min-width: 750px;
   }
 }
+@media only screen and (min-width: 767px) and (max-width: 991px) {
+  .tab-card {
+    min-width: 684px;
+  }
+}
 
 </style>
