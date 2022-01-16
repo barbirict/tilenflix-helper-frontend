@@ -10,9 +10,7 @@ export default {
   name: "dashboardView",
   components: {DashFirst},
   created() {
-    if (this.$store.getters.getUser == null) {
-      this.$router.push("/")
-    }
+
   },
   data() {
     return {
