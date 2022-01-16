@@ -16,8 +16,8 @@
     <va-input class="mb-0 ma-0 short" label="year"/>
     </div>
     <div class="input-wrapper-mid">
-    <va-input class="mb-0 ma-2 long"  label="season"/>
-    <va-input class="mb-0 ma-0 short" label="Episode" disabled/>
+    <va-input class="mb-0 ma-2 long"  label="season" :disabled="type == 'Movie'"/>
+    <va-input class="mb-0 ma-0 short" label="Episode" :disabled="type != 'TV Show (Episode)'"/>
     </div>
     <va-input class="mb-4 ma-2 stretch" v-model="test" type="textarea" label="Comment" max-rows="2"/>
 
@@ -42,8 +42,21 @@ export default {
   height: 350px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+@media only screen and (min-width: 600px) {
+ .cardd{
+   min-width: 562px;
+
+ }
+}
+@media only screen and (max-width: 599px) {
+  img {
+    display: none;
+    text-align: center;
+  }
 
 }
+
 .frm {
 
   display: inline-block;

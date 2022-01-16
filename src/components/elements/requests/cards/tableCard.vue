@@ -1,5 +1,5 @@
 <template>
-  <va-card>
+  <va-card class="tab-card">
     <va-card-title>Your requests</va-card-title>
     <va-divider></va-divider>
     <va-data-table
@@ -25,24 +25,24 @@ function itemsToFields(items) {
     let stat = ""
     let typ = ""
 
-    switch (items[i].status){
+    switch (items[i].status) {
       case "submit":
         stat = "Submitted"
-            break
+        break
       case "inprog":
         stat = "In progress"
-            break
+        break
       case "finish":
         stat = "Finished"
     }
 
-    switch (items[i].item_o.type){
+    switch (items[i].item_o.type) {
       case "tv-show":
-          typ = "TV Show season"
-            break
+        typ = "TV Show season"
+        break
       case "tv-show-episode":
         typ = "TV Show episode"
-            break
+        break
       case "movie":
         typ = "Movie"
     }
@@ -108,13 +108,13 @@ export default defineComponent({
     ]
 
     const columns = [
-      {key: "id", sortable: true },
-      {key: "title", sortable: true },
-      {key: "type", sortable: true },
-      {key: "season", sortable: true },
-      {key: "episodes", sortable: true },
-      {key: "date", sortable: true },
-      {key: "status", sortable: true }
+      {key: "id", sortable: true},
+      {key: "title", sortable: true},
+      {key: "type", sortable: true},
+      {key: "season", sortable: true},
+      {key: "episodes", sortable: true},
+      {key: "date", sortable: true},
+      {key: "status", sortable: true}
     ]
 
     return {
@@ -126,5 +126,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+@media only screen and (min-width: 992px) {
+  .tab-card {
+    min-width: 750px;
+  }
+}
 
 </style>
