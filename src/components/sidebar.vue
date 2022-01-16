@@ -1,5 +1,5 @@
 <template>
-  <va-sidebar hoverable textColor="dark" minimizedWidth="64px" v-model="showBar" v-on:mouseenter="handleHover" v-on:mouseleave="handleHover">
+  <va-sidebar :hoverable="hoverable" :width="swidth" textColor="dark" minimizedWidth="64px" v-model="showBar" v-on:mouseenter="handleHover" v-on:mouseleave="handleHover">
     <!--LOGIN-->
 
     <va-sidebar-item
@@ -64,7 +64,7 @@
         :active="isActive('about')"
     >
       <va-sidebar-item-content
-          v-on:click="this.emitter.emit('changedPerspective'), this.$router.push('/about')"
+          v-on:click="this.emitter.emit('changedPerspective'), handleClick('about')"
       >
         <va-icon name="info_outline"/>
         <va-sidebar-item-title style="height: 12px;">
@@ -104,9 +104,19 @@ export default {
       this.isLogin = true
     })
     this.emitter.on('sidebarSwitch', () => {
-      if(this.showBar) this.showBar = false
-      else this.showBar= true
+      this.showBar = !this.showBar;
+      if(this.showBar){
+        if(window.innerWidth < 600){
+        this.swidth = "100vw";
+          }
+        else this.swidth="240px"
+      }
+
     })
+    if(window.innerWidth < 600){
+      this.minimized=false
+      this.hoverable=false
+    }
   },
   updated() {
     if (this.$store.getters.getUser != null) {
@@ -125,7 +135,10 @@ export default {
       isLogin: false,
       isAdmin: false,
       curActive: 0,
-      showBar: true
+      showBar: true,
+      hoverable: true,
+      minimized: false,
+      swidth: "240px"
     }
   },
   methods: {
@@ -150,13 +163,19 @@ export default {
       return this.$route.name === which
     },
     handleClick(which) {
+      if(window.innerWidth < 600) {
+        this.emitter.emit('sidebarSwitch')
+        this.emitter.emit('changeIco')
+      }
       this.$router.push({name: which})
           .then(() => {
             console.log('updated route', this.$route)
           })
     },
     handleHover(){
-      this.emitter.emit('sidebarHover')
+      if(this.hoverable) {
+        this.emitter.emit('sidebarHover')
+      }
     }
   }
 }
