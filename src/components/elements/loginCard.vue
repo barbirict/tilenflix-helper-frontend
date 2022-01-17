@@ -29,8 +29,6 @@
 <script>
 import user from "../../model/user"
 import loginAttempt from "@/components/scripts/login/login";
-
-import decrypt from "@/components/scripts/decryptor";
 import userService from "@/components/scripts/userService/userService";
 
 export default {
@@ -53,9 +51,7 @@ export default {
 
         userService.get()
         .then(response => {
-              console.log("ah" + decrypt(response))
               this.$store.commit('setUser', new user(response.username, response.name, response.surname, data.email, response.id))
-              console.log("g" + JSON.stringify(this.$store.getters.getUser))
               this.emitter.emit('userLoggedIn')
               this.$router.push('dashboard')
               this.$vaToast.init({

@@ -20,7 +20,6 @@ function isAuth(){
     return store.getters.getUser != null;
 }
 router.beforeEach((to, from, next) => {
-    console.log("auth " + isAuth())
     if(to.meta.requiresAuth === true && !isAuth()) next({ name: 'login'})
     else next()
 })
