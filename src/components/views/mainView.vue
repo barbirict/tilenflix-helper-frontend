@@ -4,7 +4,7 @@
     <div class="child1" >
       <sidebar v-bind:class="{side_thing: sidebarShown}"></sidebar>
     </div>
-      <div v-bind:class="{ pushLeft2: sidebarHover, wrapper: sidebarShown}" class="child" style="">
+      <div v-bind:class="{ pushLeft2: sidebarHover, wrapper: sidebarShown}" class="child" style="transition: margin 0.3s ease;">
       <router-view></router-view>
     </div>
 

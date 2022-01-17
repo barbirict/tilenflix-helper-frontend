@@ -11,7 +11,7 @@
 
 <script>
 import 'vue3-carousel/dist/carousel.css';
-import MovieCarousel from "@/components/elements/dashboard/first/cards/recents/movieCarousel";
+import MovieCarousel from "@/components/elements/dashboard/first/cards/recents/movies/movieCarousel";
 export default {
   name: "recentCard",
   components: {MovieCarousel},

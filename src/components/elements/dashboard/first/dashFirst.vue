@@ -3,7 +3,7 @@
   <span>
   <div class="row recent">
     <div class="flex offset--lg2 xs12 sm12 md12 lg6 xl5 rc">
-  <recent-card></recent-card>
+      <recent-card/>
       </div>
   <div class="flex lg3 reqreq">
     <status-card/>
@@ -12,7 +12,7 @@
   </div>
     <div class="row recent">
       <div class="flex offset--lg2 xs12 sm12 md12 lg6 xl5 rc">
-      <recent-card></recent-card>
+      <recent-tv-card/>
       </div>
           <div class="flex lg3 novice_lg">
       <news-display-card></news-display-card>
@@ -31,14 +31,15 @@
 </template>
 
 <script>
-import RecentCard from "@/components/elements/dashboard/first/cards/recents/recentCard";
+import RecentCard from "@/components/elements/dashboard/first/cards/recents/movies/recentCard";
 import NewsDisplayCard from "@/components/elements/dashboard/first/cards/news/newsDisplayCard";
 import RequestsCounter from "@/components/elements/dashboard/first/cards/counters/requests/requestCounter";
 import StatusCard from "@/components/elements/dashboard/first/cards/status/statusCard";
+import RecentTvCard from "@/components/elements/dashboard/first/cards/recents/tv/recentTvCard";
 
 export default {
   name: "dashFirst",
-  components: {StatusCard, RequestsCounter, NewsDisplayCard, RecentCard},
+  components: {RecentTvCard, StatusCard, RequestsCounter, NewsDisplayCard, RecentCard},
 }
 </script>
 
