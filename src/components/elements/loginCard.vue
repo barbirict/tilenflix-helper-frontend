@@ -28,9 +28,8 @@
 
 <script>
 import user from "../../model/user"
-import loginAttempt from "@/components/scripts/login/login";
-import userService from "@/components/scripts/userService/userService";
-
+import loginService from "@/components/scripts/login/loginService";
+import Cookies from 'js-cookie'
 export default {
   name: "loginCard",
   data(){
@@ -42,23 +41,22 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      const data = {
-        email: this.email,
-        password: this.password
-      };
-        this.loading = true
-        await loginAttempt(data)
 
-        userService.get()
+      loginService.login(this.email, this.password)
         .then(response => {
-              this.$store.commit('setUser', new user(response.username, response.name, response.surname, data.email, response.id))
-              this.emitter.emit('userLoggedIn')
-              this.$router.push('dashboard')
-              this.$vaToast.init({
-                message: '<span><va-icon class="material-icons">check_circle</va-icon>  successful login!</span>',
-                html: true,
-                color: 'success'
-              })
+          console.log(response)
+          if(response.status !== 401) {
+            const data = response.data.data
+            Cookies.set("session", response.data.token, {expiresIn: '1d'})
+            this.$store.commit('setUser', new user(data.username, data.name, data.surname, this.email, data.id))
+            this.emitter.emit('userLoggedIn')
+            this.$router.push('dashboard')
+            this.$vaToast.init({
+              message: '<span><va-icon class="material-icons">check_circle</va-icon>  successful login!</span>',
+              html: true,
+              color: 'success'
+            })
+          }
             })
 
       }

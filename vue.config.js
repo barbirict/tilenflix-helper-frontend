@@ -2,14 +2,15 @@ module.exports = {
     devServer: {
         https: true,
         proxy: {
-            '^/api': {
-                target: 'https://localhost:6060',
+            '^/auth': {
+                target: 'https://localhost:2323',
                 changeOrigin: true
             },
-            '^/svc':{
-                target: 'https://localhost:6060',
+            '^/data/users':{
+                target: 'https://localhost:2323',
                 changeOrigin: true
             }
         }
-    }
+    },
+
 }

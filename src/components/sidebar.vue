@@ -93,8 +93,8 @@
 </template>
 
 <script>
-import firebase from "firebase/compat";
 import Cookies from "js-cookie";
+import loginService from "@/components/scripts/login/loginService";
 
 export default {
   name: "sidebar",
@@ -134,8 +134,7 @@ export default {
       this.minimized = false
       this.hoverable = true
       this.swidth = "240px"
-    }
-    else {
+    } else {
       this.hoverable = false
       this.showBar = false
       this.swidth = "100vw"
@@ -168,19 +167,19 @@ export default {
   methods: {
     log_out() {
       if (this.$store.getters.getUser != null) {
-        firebase
-            .auth()
-            .signOut()
-            .then(() => {
-              alert("logged out successfully!")
-              Cookies.remove("session")
-              this.$router.replace({
-                name: "login"
-              });
-              this.$store.commit("setUser", null)
-            });
-        this.isLogin = false
-      } else alert("Not logged in, what are you trying to do?")
+        loginService.logout(Cookies.get('session'))
+            .then(response => {
+              if (response.status === 200) {
+                Cookies.remove("session")
+                this.$router.replace({
+                  name: "login"
+                })
+                this.$store.commit("setUser", null)
+                this.isLogin = false
+              }
+            })
+            }
+      else alert("Not logged in, what are you trying to do?")
     },
     isActive(which) {
 
