@@ -8,12 +8,15 @@
       class="mb-4"
       v-model="email"
       label="Username:"
+      :error="error"
       autofocus
     ></va-input>
       <va-input
           class="mb-4"
           v-model="password"
           label="Password:"
+          :error="error"
+          error-messages="Invalid email or password!"
           type="password"
       ></va-input>
       <va-button class="mr-6 justify-self--end" type="submit">Login</va-button>
@@ -36,19 +39,20 @@ export default {
     return{
       loading: false,
       email: '',
-      password: ''
+      password: '',
+      error: false
     }
   },
   methods: {
     async handleSubmit() {
-
+      this.loading = true
       loginService.login(this.email, this.password)
         .then(response => {
-          console.log(response)
-          if(response.status !== 401) {
+          if(response.status === 200) {
             const data = response.data.data
             Cookies.set("session", response.data.token, {expiresIn: '1d'})
-            this.$store.commit('setUser', new user(data.username, data.name, data.surname, this.email, data.id))
+            this.$store.commit('setUser', new user(data.username, data.name, data.surname, this.email, data.id, data.roles))
+            console.log(this.$store.getters.getUser)
             this.emitter.emit('userLoggedIn')
             this.$router.push('dashboard')
             this.$vaToast.init({
@@ -57,7 +61,16 @@ export default {
               color: 'success'
             })
           }
+          else {
+            this.loading = false
+            this.error = true
+          }
             })
+          // eslint-disable-next-line no-unused-vars
+      .catch(err => {
+        this.loading = false
+        this.error = true
+      })
 
       }
     }
