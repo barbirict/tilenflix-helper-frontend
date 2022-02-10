@@ -9,6 +9,10 @@ module.exports = {
             '^/data/users':{
                 target: 'https://localhost:2323',
                 changeOrigin: true
+            },
+            '^/data/requests':{
+                target: 'https://localhost:2323',
+                changeOrigin: true
             }
         }
     },

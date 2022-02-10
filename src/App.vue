@@ -29,7 +29,7 @@ export default {
         loginService.auth(Cookies.get('session')).then(response => {
           if (response.status === 200) {
             const data = response.data
-            this.$store.commit('setUser', new user(data.username, data.name, data.surname, data.email, data.id))
+            this.$store.commit('setUser', new user(data.username, data.name, data.surname, data.email, data.id, data.roles))
             this.emitter.emit('userLoggedIn')
             this.$router.push('dashboard')
             this.$vaToast.init({

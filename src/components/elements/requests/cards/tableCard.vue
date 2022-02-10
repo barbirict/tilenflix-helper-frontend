@@ -15,10 +15,13 @@
 
 import {defineComponent} from 'vue'
 import dayjs from "dayjs";
+import requestService from "@/components/scripts/requestService/requestService";
+import Cookies from 'js-cookie'
 
 function itemsToFields(items) {
   let rows = []
   for (let i = 0; i < items.length; i++) {
+    items[i].item = JSON.parse(items[i].item)
     let sisn = "/"
     let epi = "/"
     let dat = dayjs(items[i].date).format("DD.MM.YYYY HH:mm")
@@ -36,7 +39,7 @@ function itemsToFields(items) {
         stat = "Finished"
     }
 
-    switch (items[i].item_o.type) {
+    switch (items[i].item.type) {
       case "tv-show":
         typ = "TV Show season"
         break
@@ -47,10 +50,10 @@ function itemsToFields(items) {
         typ = "Movie"
     }
 
-    if (items[i].item_o.season) sisn = items[i].item_o.season
-    if (items[i].item_o.episodes) epi = items[i].item_o.episodes
+    if (items[i].item.season) sisn = items[i].item.season
+    if (items[i].item.episodes) epi = items[i].item.episodes
     rows.push({
-      id: items[i].id, title: items[i].item_o.title, type: typ, season: sisn,
+      id: items[i].id, title: items[i].item.title, type: typ, season: sisn,
       episodes: epi, date: dat, status: stat
     })
   }
@@ -61,51 +64,21 @@ function itemsToFields(items) {
 export default defineComponent({
   name: "tableCard",
   methods: {},
+
+  mounted() {
+    this.loading = true
+    requestService.getUserRequests(this.$store.getters.getUser.id, Cookies.get("session"))
+    .then(response => {
+      // eslint-disable-next-line no-empty
+      if(response.status === 200){
+        this.data = response.data
+        this.rows = itemsToFields(this.data)
+      }
+    })
+  },
+
   data() {
-    const sampleData = [
-      {
-        id: "REQ000001",
-        item_o: {
-          title: "It's always sunny in philadelphia",
-          type: "tv-show",
-          season: "3",
-          episodes: "1-24",
-        },
-        date: "2022-01-10T23:30:52",
-        status: "submit",
-      },
-      {
-        id: "REQ000002",
-        item_o: {
-          title: "Star wars: Episode III",
-          type: "movie"
-        },
-        date: "2022-01-10T22:30:40",
-        status: "inprog",
-      },
-      {
-        id: "REQ000003",
-        item_o: {
-          title: "Filthy frank show: Dade special",
-          type: "tv-show-episode",
-          season: "3",
-          episodes: "1",
-        },
-        date: "2022-01-08T12:45:03",
-        status: "finish",
-      },
-      {
-        id: "REQ000004",
-        item_o: {
-          title: "The Boondocks",
-          type: "tv-show",
-          season: "4",
-          episodes: "18",
-        },
-        date: "2022-01-01T21:15:21",
-        status: "finish",
-      },
-    ]
+    let data = []
 
     const columns = [
       {key: "id", sortable: true},
@@ -118,7 +91,7 @@ export default defineComponent({
     ]
 
     return {
-      columns, rows: itemsToFields(sampleData)
+      columns, rows: itemsToFields(data)
     }
   },
 
