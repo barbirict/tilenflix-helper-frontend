@@ -29,4 +29,17 @@ export default class requestService {
             }
         })
     }
+    static async newReq(data, token){
+        return await  axios.request({
+            method: "post",
+            url: '/data/requests/new',
+            headers: {
+                Authorization: token
+            },
+            data:{
+                item: data.item,
+                comment: data.comment
+            }
+        })
+    }
 }

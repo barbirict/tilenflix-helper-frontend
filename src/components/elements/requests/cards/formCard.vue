@@ -2,7 +2,7 @@
   <va-card class="cardd">
     <va-card-title>Request form</va-card-title>
     <va-divider/>
-    <va-form class="frm">
+    <form class="frm" @submit.prevent="beforeSubmit">
       <div class="radio-wrapper ma-2">
         <va-radio
             v-for="(option, index) in options"
@@ -26,8 +26,23 @@
       </div>
       <va-input class="mb-0 ma-2 stretch" v-model="comment" type="textarea" label="Comment" max-rows="3"
                 placeholder="Not required s"/>
-      <va-button class="ma-2">Submit</va-button>
-    </va-form>
+      <va-button type="submit" class="ma-2">Submit</va-button>
+    </form>
+    <va-modal @ok="handleSubmit" v-model="beforeSub" title="Request confirmation" style="max-height: 30%!important;">
+      <div class="lg12 modalTxt">
+        <h3>title: </h3>
+        <p>{{ title }}</p>
+      </div>
+      <div class="lg12 modalTxt">
+        <h3>year: </h3>
+        <p>{{ year }}</p>
+      </div>
+      <div class="modalTxt">
+        <h3>Description: </h3>
+        <p>{{ selectedM.overview }}</p>
+      </div>
+      <img class="inner-img" :src="imgSel" style="display:inline-block; align-self: auto"/>
+    </va-modal>
     <div class="img-wrapper">
       <img :src="imgSel">
     </div>
@@ -37,13 +52,25 @@
 <script>
 import Cookies from "js-cookie";
 import requestService from "@/components/scripts/requestService/requestService";
+import dayjs from "dayjs";
 
 export default {
   name: "formCard",
   data() {
     return {
-      options: ["Movie", "TV Show (Season)", "TV Show (Episode)"], type: "Movie",
-      title: "", year: "", episode: "", season: "", comment: "", titleSel: [], selectionData: [], imgSel: ""
+      options: ["Movie", "TV Show (Season)", "TV Show (Episode)"],
+      type: "Movie",
+      title: "",
+      year: "",
+      episode: "",
+      season: "",
+      comment: "",
+      titleSel: [],
+      selectedM: {},
+      selectedT: {},
+      selectionData: [],
+      imgSel: "",
+      beforeSub: false
     }
   },
   methods: {
@@ -91,12 +118,19 @@ export default {
         if (this.type === "Movie") {
           if (this.selectionData[i].title === this.title) {
             this.imgSel = "https://image.tmdb.org/t/p/w500/" + this.selectionData[i].poster_path
-            this.year = this.selectionData[i].release_date.substring(0, 4)
+            //this.year = this.selectionData[i].release_date.substring(0, 4)
+            this.year = dayjs(this.selectionData[i].release_date).format("YYYY")
+            this.selectedM = this.selectionData[i]
+            console.log(this.selectedM)
           }
         } else {
           if (this.selectionData[i].name === this.title) {
             this.imgSel = "https://image.tmdb.org/t/p/w500/" + this.selectionData[i].poster_path
-            this.year = this.selectionData[i].first_air_date.substring(0, 4)
+            //this.year = this.selectionData[i].first_air_date.substring(0, 4)
+            this.year = dayjs(this.selectionData[i].first_air_date).format("YYYY")
+            this.selectedT = this.selectionData[i]
+            console.log(this.selectedT)
+
           }
         }
       }
@@ -110,6 +144,99 @@ export default {
       this.episode = ""
       this.season = ""
       this.imgSel = ""
+    },
+    beforeSubmit() {
+      if (this.title && this.year) {
+        if (this.type === 'Movie') {
+          this.beforeSub = true
+        } else if (this.type === 'TV Show (Season)' && this.season) {
+          this.beforeSub = true
+        } else if (this.type === 'TV Show (Episode)' && this.season && this.episode) {
+          this.beforeSub = true
+        } else {
+          this.$vaToast.init({
+            message: '<span><va-icon class="material-icons">error</va-icon>  Data not entered!</span>',
+            html: true,
+            color: 'warning'
+          })
+        }
+      } else {
+        this.$vaToast.init({
+          message: '<span><va-icon class="material-icons">error</va-icon>  Data not entered!</span>',
+          html: true,
+          color: 'warning'
+        })
+      }
+
+    },
+    handleSubmit() {
+      let data = {}
+      let item = {}
+      if (this.type === 'Movie') {
+        item = {
+          type: "movie",
+          title: this.title,
+          year: this.year
+        }
+        if (this.comment) {
+          data = {
+            item: item,
+            comment: this.comment
+          }
+        }
+      } else if (this.type === 'TV Show (Season)') {
+        item = {
+          type: "tv-show",
+          title: this.title,
+          year: this.year,
+          season: this.season
+        }
+        if (this.comment) {
+          data = {
+            item: item,
+            comment: this.comment
+          }
+        } else data = {item: item}
+      } else {
+        item = {
+          type: "tv-show-episode",
+          title: this.title,
+          year: this.year,
+          season: this.season,
+          episodes: this.episode
+        }
+
+        if (this.comment) {
+          data = {
+            item: item,
+            comment: this.comment
+          }
+        } else data = {item: item}
+      }
+
+      requestService.newReq(data, Cookies.get('session'))
+          .then(res => {
+            if (res.status === 200) {
+              this.$vaToast.init({
+                message: '<span><va-icon class="material-icons">check_circle</va-icon>  Success!</span>',
+                html: true,
+                color: 'success'
+              })
+            } else {
+              this.$vaToast.init({
+                message: '<span><va-icon class="material-icons">error_circle</va-icon>  Error submitting request!</span>',
+                html: true,
+                color: 'warning'
+              })
+            }
+          })
+          .catch(err => {
+            this.$vaToast.init({
+              message: '<span><va-icon class="material-icons">error_circle</va-icon>  Error submitting request!</span>' + err,
+              html: true,
+              color: 'warning'
+            })
+          })
     }
   }
 }
@@ -158,6 +285,15 @@ export default {
 
 }
  */
+.modalTxt h3, p {
+  text-align: center !important;
+}
+
+.inner-img {
+  display: inline-block;
+  margin-inline: 40%;
+}
+
 img {
   margin-top: 40px;
   height: 200px;
