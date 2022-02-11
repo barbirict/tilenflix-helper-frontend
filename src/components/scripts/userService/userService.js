@@ -1,18 +1,13 @@
 import axios from "axios";
 
-
-class userService {
-    async get() {
-        const response = await axios.request({
-            withCredentials: true,
+export default class userService {
+    async get(id, token) {
+        return  await axios.request({
             method: "get",
-            url: '/api/users/0',
-            data:{
-                id: 0
+            url: '/data/users/'+id,
+            headers:{
+                Authorization:token
             }
         })
-        return await response.data
     }
 }
-
-export default new userService()

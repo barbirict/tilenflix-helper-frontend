@@ -8,12 +8,15 @@
       class="mb-4"
       v-model="email"
       label="Username:"
+      :error="error"
       autofocus
     ></va-input>
       <va-input
           class="mb-4"
           v-model="password"
           label="Password:"
+          :error="error"
+          error-messages="Invalid email or password!"
           type="password"
       ></va-input>
       <va-button class="mr-6 justify-self--end" type="submit">Login</va-button>
@@ -28,38 +31,46 @@
 
 <script>
 import user from "../../model/user"
-import loginAttempt from "@/components/scripts/login/login";
-import userService from "@/components/scripts/userService/userService";
-
+import loginService from "@/components/scripts/login/loginService";
+import Cookies from 'js-cookie'
 export default {
   name: "loginCard",
   data(){
     return{
       loading: false,
       email: '',
-      password: ''
+      password: '',
+      error: false
     }
   },
   methods: {
     async handleSubmit() {
-      const data = {
-        email: this.email,
-        password: this.password
-      };
-        this.loading = true
-        await loginAttempt(data)
-
-        userService.get()
+      this.loading = true
+      loginService.login(this.email, this.password)
         .then(response => {
-              this.$store.commit('setUser', new user(response.username, response.name, response.surname, data.email, response.id))
-              this.emitter.emit('userLoggedIn')
-              this.$router.push('dashboard')
-              this.$vaToast.init({
-                message: '<span><va-icon class="material-icons">check_circle</va-icon>  successful login!</span>',
-                html: true,
-                color: 'success'
-              })
+          if(response.status === 200) {
+            const data = response.data.data
+            Cookies.set("session", response.data.token, {expiresIn: '1d'})
+            this.$store.commit('setUser', new user(data.username, data.name, data.surname, this.email, data.id, data.roles))
+            console.log(this.$store.getters.getUser)
+            this.emitter.emit('userLoggedIn')
+            this.$router.push('dashboard')
+            this.$vaToast.init({
+              message: '<span><va-icon class="material-icons">check_circle</va-icon>  successful login!</span>',
+              html: true,
+              color: 'success'
             })
+          }
+          else {
+            this.loading = false
+            this.error = true
+          }
+            })
+          // eslint-disable-next-line no-unused-vars
+      .catch(err => {
+        this.loading = false
+        this.error = true
+      })
 
       }
     }
