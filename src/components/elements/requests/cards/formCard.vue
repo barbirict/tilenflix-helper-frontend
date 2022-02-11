@@ -183,7 +183,7 @@ export default {
             item: item,
             comment: this.comment
           }
-        }
+        } else data = {item: item}
       } else if (this.type === 'TV Show (Season)') {
         item = {
           type: "tv-show",
