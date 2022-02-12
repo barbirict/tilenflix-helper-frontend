@@ -24,7 +24,7 @@ function itemsToFields(items) {
     items[i].item = JSON.parse(items[i].item)
     let sisn = "/"
     let epi = "/"
-    let dat = dayjs(items[i].date).format("DD.MM.YYYY HH:mm")
+    let dat = dayjs(parseInt(items[i].date_reported)).format("DD.MM.YYYY HH:mm")
     let stat = ""
     let typ = ""
 
@@ -53,7 +53,7 @@ function itemsToFields(items) {
     if (items[i].item.season) sisn = items[i].item.season
     if (items[i].item.episodes) epi = items[i].item.episodes
     rows.push({
-      id: items[i].id, title: items[i].item.title, type: typ, season: sisn,
+      id: 'REQ000' + items[i].id, title: items[i].item.title, type: typ, season: sisn,
       episodes: epi, date: dat, status: stat
     })
   }
@@ -110,5 +110,6 @@ export default defineComponent({
     min-width: 684px;
   }
 }
+
 
 </style>

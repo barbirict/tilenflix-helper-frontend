@@ -28,20 +28,21 @@
                 placeholder="Not required s"/>
       <va-button type="submit" class="ma-2">Submit</va-button>
     </form>
-    <va-modal @ok="handleSubmit" v-model="beforeSub" title="Request confirmation" style="max-height: 30%!important;">
-      <div class="lg12 modalTxt">
-        <h3>title: </h3>
+    <!--TODO Fix modal overall look-->
+    <va-modal @ok="handleSubmit" v-model="beforeSub" title="Request confirmation" :mobile-fullscreen="false">
+      <div class="modalTxt">
+        <h3>Title: </h3>
         <p>{{ title }}</p>
       </div>
-      <div class="lg12 modalTxt">
-        <h3>year: </h3>
+      <div class="modalTxt">
+        <h3>Year: </h3>
         <p>{{ year }}</p>
       </div>
       <div class="modalTxt">
         <h3>Description: </h3>
         <p>{{ selectedM.overview }}</p>
       </div>
-      <img class="inner-img" :src="imgSel" style="display:inline-block; align-self: auto"/>
+      <img class="inner-img" :src="imgSel"/>
     </va-modal>
     <div class="img-wrapper">
       <img :src="imgSel">
@@ -290,8 +291,14 @@ export default {
 }
 
 .inner-img {
-  display: inline-block;
-  margin-inline: 40%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.inner-img-wrapper{
+  display: flex;
+  align-items: center;
+
 }
 
 img {
