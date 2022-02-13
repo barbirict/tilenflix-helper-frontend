@@ -14,7 +14,7 @@
       </div>
       <div class="input-wrapper-top">
         <!--<va-input class="mb-0 ma-2 long" v-model="title" label="Title" placeholder="eg. Content Title" :rules="[(v) => v.length > 2 || ``]"/>-->
-        <va-select class="mb-0 ma-2 long" v-model="title" label="Title" :options="titleSel" @update-search="searchTitle"
+        <va-select class="mb-0 ma-2 long" v-model="title" label="Title" :options="titleSel" track-by="id" @update-search="searchTitle"
                    v-on:update:modelValue="autoYear" searchable/>
         <va-input type="number" class="mb-0 ma-0 short" v-model="year" label="year" placeholder="eg. 2003"/>
       </div>
@@ -32,7 +32,7 @@
     <va-modal @ok="handleSubmit" v-model="beforeSub" title="Request confirmation" :mobile-fullscreen="false">
       <div class="modalTxt">
         <h3>Title: </h3>
-        <p>{{ title }}</p>
+        <p>{{ title.value }}</p>
       </div>
       <div class="modalTxt">
         <h3>Year: </h3>
@@ -61,7 +61,11 @@ export default {
     return {
       options: ["Movie", "TV Show (Season)", "TV Show (Episode)"],
       type: "Movie",
-      title: "",
+      title: {
+        text: " ",
+        value: " ",
+        id: 1
+      },
       year: "",
       episode: "",
       season: "",
@@ -70,9 +74,12 @@ export default {
       selectedM: {},
       selectedT: {},
       selectionData: [],
-      imgSel: "",
+      imgSel: "https://upload.wikimedia.org/wikipedia/en/6/60/No_Picture.jpg",
       beforeSub: false
     }
+  },
+  mounted() {
+    console.log(this.title)
   },
   methods: {
     searchTitle(query) {
@@ -84,7 +91,12 @@ export default {
                   this.titleSel = []
                   this.selectionData = response.data.results
                   for (let i = 0; i < this.selectionData.length; i++) {
-                    this.titleSel.push(this.selectionData[i].title)
+                    let tito = {
+                      text: this.selectionData[i].title + ' (' + dayjs(this.selectionData[i].release_date).format("YYYY") + ')',
+                      value: this.selectionData[i].title,
+                      id: this.selectionData[i].id
+                    }
+                    this.titleSel.push(tito)
                   }
                   console.log(this.titleSel)
                 }
@@ -100,7 +112,12 @@ export default {
                   this.titleSel = []
                   this.selectionData = response.data.results
                   for (let i = 0; i < this.selectionData.length; i++) {
-                    this.titleSel.push(this.selectionData[i].name)
+                    let tito = {
+                      text: this.selectionData[i].name + ' (' + dayjs(this.selectionData[i].first_air_date).format("YYYY") + ')',
+                      value: this.selectionData[i].name,
+                      id: this.selectionData[i].id
+                    }
+                    this.titleSel.push(tito)
                   }
                   console.log(this.titleSel)
                 }
@@ -114,10 +131,12 @@ export default {
       }
     },
     autoYear() {
-
+      console.log(this.title)
       for (let i = 0; i < this.selectionData.length; i++) {
+        console.log(this.title.id + " || " + this.selectionData[i].id)
         if (this.type === "Movie") {
-          if (this.selectionData[i].title === this.title) {
+          if (this.selectionData[i].id === this.title.id) {
+            console.log("je")
             this.imgSel = "https://image.tmdb.org/t/p/w500/" + this.selectionData[i].poster_path
             //this.year = this.selectionData[i].release_date.substring(0, 4)
             this.year = dayjs(this.selectionData[i].release_date).format("YYYY")
@@ -125,7 +144,7 @@ export default {
             console.log(this.selectedM)
           }
         } else {
-          if (this.selectionData[i].name === this.title) {
+          if (this.selectionData[i].id === this.title.id) {
             this.imgSel = "https://image.tmdb.org/t/p/w500/" + this.selectionData[i].poster_path
             //this.year = this.selectionData[i].first_air_date.substring(0, 4)
             this.year = dayjs(this.selectionData[i].first_air_date).format("YYYY")
@@ -139,12 +158,16 @@ export default {
     clearSelOnChange() {
       this.selectionData = []
       this.titleSel = []
-      this.title = ""
+      this.title = {
+        text: ' ',
+        value: ' ',
+        id: 1
+      }
       this.year = ""
       this.comment = ""
       this.episode = ""
       this.season = ""
-      this.imgSel = ""
+      this.imgSel = "https://upload.wikimedia.org/wikipedia/en/6/60/No_Picture.jpg"
     },
     beforeSubmit() {
       if (this.title && this.year) {
@@ -295,7 +318,8 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-.inner-img-wrapper{
+
+.inner-img-wrapper {
   display: flex;
   align-items: center;
 

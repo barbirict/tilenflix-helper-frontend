@@ -4,10 +4,23 @@
     <va-divider></va-divider>
     <va-data-table
         :items="rows"
-        :columns="columns">
+        :columns="columns"
+        :per-page="perPage"
+        :current-page="currentPage"
+    >
       <template #header(episodes)>Episode(s)</template>
 
+      <template #bodyAppend>
+        <tr><td colspan="12" class="table--pagination">
+          <va-pagination
+              v-model="currentPage"
+              input
+              :pages="pages"
+          />
+        </td></tr>
+      </template>
     </va-data-table>
+
   </va-card>
 </template>
 
@@ -91,9 +104,17 @@ export default defineComponent({
     ]
 
     return {
-      columns, rows: itemsToFields(data)
+      columns, rows: itemsToFields(data), perPage: 5, currentPage: 1
     }
   },
+  computed: {
+    pages() {
+      return (this.perPage && this.perPage !== 0)
+        ? Math.ceil(this.rows.length / this.perPage)
+          : this.rows.length
+
+    }
+  }
 
 })
 </script>
@@ -110,6 +131,9 @@ export default defineComponent({
     min-width: 684px;
   }
 }
-
+.table--pagination{
+  text-align: center;
+  text-align: -webkit-center;
+}
 
 </style>
