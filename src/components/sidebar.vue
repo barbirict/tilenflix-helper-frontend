@@ -204,18 +204,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
-.va-sidebar {
-  .va-sidebar__title {
-    transition: opacity 0.2s ease-in-out;
-  }
-
-  &--minimized {
-    .va-sidebar__title {
-      opacity: 0;
-    }
-  }
+<style lang="css" scoped>
+.va-sidebar .va-sidebar__title {
+  transition: opacity 0.2s ease-in-out;
 }
+.va-sidebar--minimized .va-sidebar__title {
+  opacity: 0;
+}
+
 
 </style>
