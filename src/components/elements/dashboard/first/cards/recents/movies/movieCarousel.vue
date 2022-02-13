@@ -50,12 +50,20 @@ export default defineComponent({
     settings: {
       itemsToShow: 2.75,
       wrapAround: 'true',
-      autoplay: 30000
+      autoplay: 5000
     },
     // breakpoints are mobile first
     // any settings not specified will fallback to the carousel settings
     breakpoints: {
       // 700px and up
+      360: {
+        itemsToShow: 2.08,
+        snapAlign: 'center'
+      },
+      536: {
+        itemsToShow: 3.45,
+        snapAlign: 'center'
+      },
       768: {
         itemsToShow: 3.45,
         snapAlign: 'center',
@@ -110,6 +118,5 @@ export default defineComponent({
 .carousel__slide--active > .carousel__item {
   transform: scale(1.1);
 }
-
 
 </style>

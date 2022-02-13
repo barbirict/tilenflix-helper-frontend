@@ -27,7 +27,7 @@ export default {
 <style scoped>
 .display-news{
   overflow: scroll;
-  height: 360px;
+  height: 380px;
   -ms-overflow-style: none;
   scrollbar-width: none;
   width: 96%;

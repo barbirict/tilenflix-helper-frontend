@@ -37,6 +37,6 @@ width: 90%;
 }
 
 .recentCard{
-  height: 360px;
+  height: 380px;
 }
 </style>

@@ -40,7 +40,8 @@
       </div>
       <div class="modalTxt">
         <h3>Description: </h3>
-        <p>{{ selectedM.overview }}</p>
+        <p v-if="type === 'Movie'">{{ selectedM.overview }}</p>
+        <p v-else>{{ selectedT.overview }}</p>
       </div>
       <img class="inner-img" :src="imgSel"/>
     </va-modal>
@@ -81,6 +82,13 @@ export default {
   mounted() {
     console.log(this.title)
   },
+  watch:{
+    selectionData(){
+      if(!this.selectionData && this.title.value !== ' '){
+        this.searchTitle()
+      }
+}
+  },
   methods: {
     searchTitle(query) {
       if (query) {
@@ -98,7 +106,6 @@ export default {
                     }
                     this.titleSel.push(tito)
                   }
-                  console.log(this.titleSel)
                 }
 
               })
@@ -119,7 +126,6 @@ export default {
                     }
                     this.titleSel.push(tito)
                   }
-                  console.log(this.titleSel)
                 }
 
               })
@@ -141,7 +147,6 @@ export default {
             //this.year = this.selectionData[i].release_date.substring(0, 4)
             this.year = dayjs(this.selectionData[i].release_date).format("YYYY")
             this.selectedM = this.selectionData[i]
-            console.log(this.selectedM)
           }
         } else {
           if (this.selectionData[i].id === this.title.id) {
@@ -149,7 +154,6 @@ export default {
             //this.year = this.selectionData[i].first_air_date.substring(0, 4)
             this.year = dayjs(this.selectionData[i].first_air_date).format("YYYY")
             this.selectedT = this.selectionData[i]
-            console.log(this.selectedT)
 
           }
         }

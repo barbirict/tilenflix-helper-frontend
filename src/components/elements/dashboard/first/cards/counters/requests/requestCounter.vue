@@ -68,7 +68,7 @@ export default {
   margin-left: 20px;
   margin-top: 20px;
   width: 96%;
-  height: 180px;
+  height: 200px;
 }
 
 #submitted, #completed, #in_progress {
