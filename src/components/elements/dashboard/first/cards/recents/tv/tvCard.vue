@@ -1,15 +1,17 @@
 <template>
   <div class="tv-card">
     <img class="poster" height="200" width="140"
-         src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2a5bb2105168471.5f733bb4cec20.jpg">
-    <h3>Dune</h3>
-    <p>Uploaded: 10.11.2021</p>
+         :src=show.imgSrc>
+    <h3>{{ show.title }}</h3>
+    <h4>{{ show.season }}</h4>
+    <p>Uploaded: {{ show.uploaded }}</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "tvCard"
+  name: "tvCard",
+  props: ['show']
 }
 </script>
 

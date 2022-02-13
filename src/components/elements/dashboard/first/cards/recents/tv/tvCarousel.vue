@@ -1,18 +1,23 @@
 <template>
   <Carousel :settings="settings" :breakpoints="breakpoints">
-    <Slide v-for="slide in 10" :key="slide">
-      <tv-card class="carousel__item"> </tv-card>
+    <Slide v-for="show in showList" :key="show.guid">
+      <tv-card class="carousel__item"
+      :show="show"
+      />
     </Slide>
 
   </Carousel>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import { Carousel, Navigation, Slide } from 'vue3-carousel';
+import {defineComponent} from 'vue';
+import {Carousel, Navigation, Slide} from 'vue3-carousel';
 
 import 'vue3-carousel/dist/carousel.css';
 import tvCard from "@/components/elements/dashboard/first/cards/recents/tv/tvCard";
+import plexService from "@/components/scripts/plexService/plexService";
+import Cookies from "js-cookie";
+import dayjs from "dayjs";
 
 export default defineComponent({
   name: 'tvCarousel',
@@ -21,6 +26,22 @@ export default defineComponent({
     Carousel,
     Slide,
     Navigation,
+  },
+  created() {
+    plexService.getRecent(Cookies.get('session'), 'season', 60)
+        .then(response => {
+          console.log(response.data)
+          for (let i = 0; i < response.data.length; i++) {
+            let show = {
+              guid: response.data[i].guid,
+              title: response.data[i].parentTitle,
+              season: response.data[i].title,
+              imgSrc: "data:image/png;base64, " + response.data[i].thumb,
+              uploaded: dayjs.unix(response.data[i].addedAt).format("DD.MM.YYYY")
+            }
+            this.showList.push(show)
+          }
+        })
   },
   data: () => ({
     // carousel settings
@@ -37,7 +58,7 @@ export default defineComponent({
         itemsToShow: 3.45,
         snapAlign: 'center',
       },
-      992:{
+      992: {
         itemsToShow: 3.05,
         snapAlign: 'center'
       },
@@ -51,6 +72,7 @@ export default defineComponent({
         snapAlign: 'center'
       }
     },
+    showList: []
   }),
 });
 </script>
@@ -68,16 +90,20 @@ export default defineComponent({
   opacity: 0.5;
   transition: 0.5s;
 }
+
 .carousel__slide--visible > .carousel__item {
   opacity: 1;
   transform: rotateY(0);
 }
+
 .carousel__slide--next > .carousel__item {
   transform: scale(0.9) translate(-10px);
 }
+
 .carousel__slide--prev > .carousel__item {
   transform: scale(0.9) translate(10px);
 }
+
 .carousel__slide--active > .carousel__item {
   transform: scale(1.1);
 }

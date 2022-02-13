@@ -1,15 +1,16 @@
 <template>
   <div class="movie-card">
     <img class="poster" height="200" width="140"
-         src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2a5bb2105168471.5f733bb4cec20.jpg">
-    <h3>Dune</h3>
-    <p>Uploaded: 10.11.2021</p>
+         :src="movie.imgSrc" alt="image">
+    <h3>{{ movie.title }}</h3>
+    <p>Uploaded: {{ movie.uploaded }}</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "movieCard"
+  name: "movieCard",
+  props: ['movie']
 }
 </script>
 

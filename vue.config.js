@@ -13,6 +13,10 @@ module.exports = {
             '^/data/requests':{
                 target: 'https://localhost:2323',
                 changeOrigin: true
+            },
+            '^/data/plex':{
+                target: 'https://localhost:2323',
+                changeOrigin: true
             }
         }
     },
