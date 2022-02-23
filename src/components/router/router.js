@@ -4,11 +4,13 @@ import dashboardView from "@/components/views/dashboardView";
 import about from "@/components/views/about";
 import clientRequestView from "@/components/views/clientRequestView";
 import store from "@/components/store/userStore"
+import managementView from "@/components/views/managementView";
 const routes = [
     {path: '/', component: login, name: 'login', meta:{ requiresAuth: false}},
     {path: '/about', component: about, name: 'about', meta:{ requiresAuth: false}},
     {path: '/dashboard', component: dashboardView, name: 'dashboard', meta:{ requiresAuth: true}},
-    {path: '/requests', component: clientRequestView, name: 'requests', meta: { requiresAuth: true}}
+    {path: '/requests', component: clientRequestView, name: 'requests', meta: { requiresAuth: true}},
+    {path: '/management', component: managementView, name: 'management', meta:{requiresAuth: true}}
 
 ]
 

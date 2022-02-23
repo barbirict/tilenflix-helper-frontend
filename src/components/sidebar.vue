@@ -73,6 +73,20 @@
         </va-sidebar-item-title>
       </va-sidebar-item-content>
     </va-sidebar-item>
+    <!--MANAGEMENT-->
+    <va-sidebar-item
+        v-if="isLogin"
+        id="s5"
+    >
+      <va-sidebar-item-content
+          v-on:click="this.emitter.emit('changedPerspective'), handleClick('management')"
+      >
+        <va-icon name="management"/>
+        <va-sidebar-item-title style="height: 12px;">
+          Management
+        </va-sidebar-item-title>
+      </va-sidebar-item-content>
+    </va-sidebar-item>
     <!--LOG OUT-->
     <va-sidebar-item
         v-if="isLogin"
@@ -88,6 +102,7 @@
         </va-sidebar-item-title>
       </va-sidebar-item-content>
     </va-sidebar-item>
+
 
   </va-sidebar>
 </template>
@@ -178,8 +193,7 @@ export default {
                 this.isLogin = false
               }
             })
-            }
-      else alert("Not logged in, what are you trying to do?")
+      } else alert("Not logged in, what are you trying to do?")
     },
     isActive(which) {
 
@@ -208,6 +222,7 @@ export default {
 .va-sidebar .va-sidebar__title {
   transition: opacity 0.2s ease-in-out;
 }
+
 .va-sidebar--minimized .va-sidebar__title {
   opacity: 0;
 }

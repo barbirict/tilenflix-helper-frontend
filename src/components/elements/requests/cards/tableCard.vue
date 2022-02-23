@@ -11,13 +11,15 @@
       <template #header(episodes)>Episode(s)</template>
 
       <template #bodyAppend>
-        <tr><td colspan="12" class="table--pagination">
-          <va-pagination
-              v-model="currentPage"
-              input
-              :pages="pages"
-          />
-        </td></tr>
+        <tr>
+          <td colspan="12" class="table--pagination">
+            <va-pagination
+                v-model="currentPage"
+                input
+                :pages="pages"
+            />
+          </td>
+        </tr>
       </template>
     </va-data-table>
 
@@ -81,13 +83,13 @@ export default defineComponent({
   mounted() {
     this.loading = true
     requestService.getUserRequests(this.$store.getters.getUser.id, Cookies.get("session"))
-    .then(response => {
-      // eslint-disable-next-line no-empty
-      if(response.status === 200){
-        this.data = response.data
-        this.rows = itemsToFields(this.data)
-      }
-    })
+        .then(response => {
+          // eslint-disable-next-line no-empty
+          if (response.status === 200) {
+            this.data = response.data
+            this.rows = itemsToFields(this.data)
+          }
+        })
   },
 
   data() {
@@ -110,7 +112,7 @@ export default defineComponent({
   computed: {
     pages() {
       return (this.perPage && this.perPage !== 0)
-        ? Math.ceil(this.rows.length / this.perPage)
+          ? Math.ceil(this.rows.length / this.perPage)
           : this.rows.length
 
     }
@@ -126,12 +128,14 @@ export default defineComponent({
     min-width: 750px;
   }
 }
+
 @media only screen and (min-width: 767px) and (max-width: 991px) {
   .tab-card {
     min-width: 684px;
   }
 }
-.table--pagination{
+
+.table--pagination {
   text-align: center;
   text-align: -webkit-center;
 }
