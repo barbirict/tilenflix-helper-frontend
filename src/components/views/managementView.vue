@@ -1,10 +1,10 @@
 <template>
   <div id="content">
     <div id="tabs">
-      <news-tab v-if="selected==='News'"/>
-      <users-tab v-if="selected==='Users'"/>
-      <requests-tab v-if="selected==='Requests'"/>
-      <incidents-tab v-if="selected==='Incidents'"/>
+      <news-tab v-if="selected === 'News'"/>
+      <users-tab v-if="selected === 'Users'"/>
+      <requests-tab v-if="selected === 'Requests'"/>
+      <incidents-tab v-if="selected === 'Incidents'"/>
     </div>
     <div id="nav">
       <va-tabs v-model="selected">
@@ -40,6 +40,7 @@ import usersTab from "@/components/elements/management/tabs/usersTab";
 import NewsTab from "@/components/elements/management/tabs/newsTab";
 import RequestsTab from "@/components/elements/management/tabs/requestsTab";
 import IncidentsTab from "@/components/elements/management/tabs/incidentsTab";
+
 export default {
   name: "managementView",
   components: {IncidentsTab, RequestsTab, NewsTab, usersTab},
@@ -52,6 +53,7 @@ export default {
 <style scoped>
 #content {
 }
+
 #nav {
   margin: auto;
   width: 300px

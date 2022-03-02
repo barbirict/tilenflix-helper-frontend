@@ -7,6 +7,10 @@
         :columns="columns"
         :per-page="perPage"
         :current-page="currentPage"
+        selectable
+        selected-mode="single"
+        v-model="selectedUser"
+        @selectionChange="log"
     >
 
       <template #bodyAppend>
@@ -41,7 +45,7 @@ export default {
       {key: "roles", sortable: true}
     ]
     return {
-      columns, rows: userData, perPage: 5, currentPage: 1
+      columns, rows: userData, perPage: 5, currentPage: 1, selectedUser: ""
     }
   },
   mounted(){
@@ -58,6 +62,9 @@ export default {
               console.log(this.rows)
             }
           })
+    },
+    log(){
+      console.log(this.selectedUser)
     }
   },
   computed: {
